@@ -3544,5 +3544,312 @@
     "module": "学生管理",
     "userId": "1768185034_16807",
     "username": "admin"
+  },
+  {
+    "action": "登录",
+    "createdAt": "Mon Jan 12 14:53:26 2026",
+    "id": "1768200806_16807",
+    "ip": "",
+    "module": "认证",
+    "userId": "1768185034_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses",
+    "createdAt": "Mon Jan 12 14:53:28 2026",
+    "id": "1768200808_282475249",
+    "module": "课程管理",
+    "userId": "1768185034_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students",
+    "createdAt": "Mon Jan 12 14:53:30 2026",
+    "id": "1768200810_1622650073",
+    "module": "学生管理",
+    "userId": "1768185034_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students",
+    "createdAt": "Mon Jan 12 14:53:34 2026",
+    "id": "1768200814_984943658",
+    "module": "学生管理",
+    "userId": "1768185034_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses",
+    "createdAt": "Mon Jan 12 14:53:49 2026",
+    "id": "1768200829_1144108930",
+    "module": "课程管理",
+    "userId": "1768185034_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students",
+    "createdAt": "Mon Jan 12 14:53:52 2026",
+    "id": "1768200832_470211272",
+    "module": "学生管理",
+    "userId": "1768185034_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses",
+    "createdAt": "Mon Jan 12 14:53:55 2026",
+    "id": "1768200835_101027544",
+    "module": "课程管理",
+    "userId": "1768185034_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students",
+    "createdAt": "Mon Jan 12 14:53:57 2026",
+    "id": "1768200837_1457850878",
+    "module": "学生管理",
+    "userId": "1768185034_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses",
+    "createdAt": "Mon Jan 12 14:53:58 2026",
+    "id": "1768200838_1458777923",
+    "module": "课程管理",
+    "userId": "1768185034_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses/1768187809_1137623865",
+    "createdAt": "Mon Jan 12 14:54:02 2026",
+    "id": "1768200842_2007237709",
+    "module": "课程管理",
+    "userId": "1768185034_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses/1768187809_1137623865/students",
+    "createdAt": "Mon Jan 12 14:54:02 2026",
+    "id": "1768200842_823564440",
+    "module": "课程管理",
+    "userId": "1768185034_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses",
+    "createdAt": "Mon Jan 12 14:54:03 2026",
+    "id": "1768200843_1115438165",
+    "module": "课程管理",
+    "userId": "1768185034_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses",
+    "createdAt": "Mon Jan 12 14:54:05 2026",
+    "id": "1768200845_1784484492",
+    "module": "课程管理",
+    "userId": "1768185034_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /statistics/class",
+    "createdAt": "Mon Jan 12 14:54:05 2026",
+    "id": "1768200845_74243042",
+    "module": "统计分析",
+    "userId": "1768185034_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /statistics/distribution",
+    "createdAt": "Mon Jan 12 14:54:05 2026",
+    "id": "1768200845_114807987",
+    "module": "统计分析",
+    "userId": "1768185034_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /statistics/ranking",
+    "createdAt": "Mon Jan 12 14:54:05 2026",
+    "id": "1768200845_1137522503",
+    "module": "统计分析",
+    "userId": "1768185034_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /statistics/overview",
+    "createdAt": "Mon Jan 12 14:54:05 2026",
+    "id": "1768200845_1441282327",
+    "module": "统计分析",
+    "userId": "1768185034_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /statistics/class",
+    "createdAt": "Mon Jan 12 14:54:05 2026",
+    "id": "1768200845_16531729",
+    "module": "统计分析",
+    "userId": "1768185034_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /statistics/ranking",
+    "createdAt": "Mon Jan 12 14:54:05 2026",
+    "id": "1768200845_823378840",
+    "module": "统计分析",
+    "userId": "1768185034_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /statistics/distribution",
+    "createdAt": "Mon Jan 12 14:54:05 2026",
+    "id": "1768200845_143542612",
+    "module": "统计分析",
+    "userId": "1768185034_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses",
+    "createdAt": "Mon Jan 12 14:54:07 2026",
+    "id": "1768200847_1474833169",
+    "module": "课程管理",
+    "userId": "1768185034_16807",
+    "username": "admin"
+  },
+  {
+    "action": "登录",
+    "createdAt": "Mon Jan 12 14:55:21 2026",
+    "id": "1768200921_1264817709",
+    "ip": "",
+    "module": "认证",
+    "userId": "1768185034_1622650073",
+    "username": "student"
+  },
+  {
+    "action": "GET /students",
+    "createdAt": "Mon Jan 12 14:55:23 2026",
+    "id": "1768200923_1998097157",
+    "module": "学生管理",
+    "userId": "1768185034_1622650073",
+    "username": "student"
+  },
+  {
+    "action": "GET /grades",
+    "createdAt": "Mon Jan 12 14:55:23 2026",
+    "id": "1768200923_1817129560",
+    "module": "成绩管理",
+    "userId": "1768185034_1622650073",
+    "username": "student"
+  },
+  {
+    "action": "GET /courses",
+    "createdAt": "Mon Jan 12 14:55:23 2026",
+    "id": "1768200923_1131570933",
+    "module": "课程管理",
+    "userId": "1768185034_1622650073",
+    "username": "student"
+  },
+  {
+    "action": "GET /statistics/overview",
+    "createdAt": "Mon Jan 12 14:55:24 2026",
+    "id": "1768200924_197493099",
+    "module": "统计分析",
+    "userId": "1768185034_1622650073",
+    "username": "student"
+  },
+  {
+    "action": "GET /statistics/class",
+    "createdAt": "Mon Jan 12 14:55:24 2026",
+    "id": "1768200924_1404280278",
+    "module": "统计分析",
+    "userId": "1768185034_1622650073",
+    "username": "student"
+  },
+  {
+    "action": "GET /statistics/ranking",
+    "createdAt": "Mon Jan 12 14:55:24 2026",
+    "id": "1768200924_893351816",
+    "module": "统计分析",
+    "userId": "1768185034_1622650073",
+    "username": "student"
+  },
+  {
+    "action": "GET /statistics/distribution",
+    "createdAt": "Mon Jan 12 14:55:24 2026",
+    "id": "1768200924_1505795335",
+    "module": "统计分析",
+    "userId": "1768185034_1622650073",
+    "username": "student"
+  },
+  {
+    "action": "GET /statistics/overview",
+    "createdAt": "Mon Jan 12 14:55:27 2026",
+    "id": "1768200927_1954899097",
+    "module": "统计分析",
+    "userId": "1768185034_1622650073",
+    "username": "student"
+  },
+  {
+    "action": "GET /statistics/class",
+    "createdAt": "Mon Jan 12 14:55:27 2026",
+    "id": "1768200927_1636807826",
+    "module": "统计分析",
+    "userId": "1768185034_1622650073",
+    "username": "student"
+  },
+  {
+    "action": "GET /statistics/ranking",
+    "createdAt": "Mon Jan 12 14:55:27 2026",
+    "id": "1768200927_563613512",
+    "module": "统计分析",
+    "userId": "1768185034_1622650073",
+    "username": "student"
+  },
+  {
+    "action": "GET /statistics/distribution",
+    "createdAt": "Mon Jan 12 14:55:27 2026",
+    "id": "1768200927_101929267",
+    "module": "统计分析",
+    "userId": "1768185034_1622650073",
+    "username": "student"
+  },
+  {
+    "action": "GET /grades",
+    "createdAt": "Mon Jan 12 14:55:28 2026",
+    "id": "1768200928_1580723810",
+    "module": "成绩管理",
+    "userId": "1768185034_1622650073",
+    "username": "student"
+  },
+  {
+    "action": "GET /students",
+    "createdAt": "Mon Jan 12 14:55:28 2026",
+    "id": "1768200928_704877633",
+    "module": "学生管理",
+    "userId": "1768185034_1622650073",
+    "username": "student"
+  },
+  {
+    "action": "GET /courses",
+    "createdAt": "Mon Jan 12 14:55:28 2026",
+    "id": "1768200928_1358580979",
+    "module": "课程管理",
+    "userId": "1768185034_1622650073",
+    "username": "student"
+  },
+  {
+    "action": "GET /grades",
+    "createdAt": "Mon Jan 12 14:55:32 2026",
+    "id": "1768200932_1624379149",
+    "module": "成绩管理",
+    "userId": "1768185034_1622650073",
+    "username": "student"
+  },
+  {
+    "action": "登录",
+    "createdAt": "Mon Jan 12 14:57:25 2026",
+    "id": "1768201045_16807",
+    "ip": "",
+    "module": "认证",
+    "userId": "1768185034_16807",
+    "username": "admin"
   }
 ]
