@@ -312,6 +312,168 @@ public:
 
         return jsonResponse(courseStudents);
     }
+
+    // 学生选课
+    crow::response enrollStudent(const crow::request& req, const std::string& courseId) {
+        // 验证Token
+        auto token = req.get_header_value("Authorization");
+        if (token.empty() || token.substr(0, 7) != "Bearer ") {
+            return errorResponse("Unauthorized", "Missing token", 401);
+        }
+        
+        // 验证权限（管理员和教师可以选课）
+        if (!authManager->hasPermission(token.substr(7), {"admin", "teacher"})) {
+            return errorResponse("Forbidden", "Admin or Teacher only", 403);
+        }
+
+        // 解析请求体
+        json body;
+        try {
+            body = json::parse(req.body);
+        } catch (...) {
+            return errorResponse("BadRequest", "Invalid JSON", 400);
+        }
+
+        if (!body.contains("studentId")) {
+            return errorResponse("BadRequest", "Missing studentId", 400);
+        }
+
+        std::string studentId = body["studentId"];
+
+        // 检查课程是否存在
+        auto courses = dataManager->getCourses();
+        auto courseIt = std::find_if(courses.begin(), courses.end(),
+            [&](const Course& c) { return c.id == courseId; });
+        
+        if (courseIt == courses.end()) {
+            return errorResponse("NotFound", "Course not found", 404);
+        }
+
+        // 检查学生是否存在
+        auto students = dataManager->getStudents();
+        auto studentIt = std::find_if(students.begin(), students.end(),
+            [&](const Student& s) { return s.studentId == studentId; });
+        
+        if (studentIt == students.end()) {
+            return errorResponse("NotFound", "Student not found", 404);
+        }
+
+        // 检查是否已经选课（通过成绩记录判断）
+        auto grades = dataManager->getGrades();
+        auto gradeIt = std::find_if(grades.begin(), grades.end(),
+            [&](const Grade& g) { 
+                return g.courseId == courseId && g.studentId == studentId; 
+            });
+        
+        if (gradeIt != grades.end()) {
+            return errorResponse("Conflict", "Student already enrolled in this course", 409);
+        }
+
+        // 创建选课记录（初始成绩为0，等待录入）
+        Grade newGrade{
+            dataManager->generateId(),
+            studentId,
+            studentIt->name,
+            courseId,
+            courseIt->name,
+            0,  // 初始成绩为0
+            std::nullopt,  // 可选的学期字段
+            dataManager->getCurrentTimestamp(),
+            dataManager->getCurrentTimestamp()
+        };
+        grades.push_back(newGrade);
+        dataManager->saveGrades(grades);
+
+        // 记录日志
+        auto currentUser = authManager->getCurrentUser(token.substr(7));
+        if (currentUser.has_value()) {
+            logger->logOperation(currentUser.value().id, currentUser.value().username,
+                               "POST /courses/" + courseId + "/enroll", "课程管理");
+        }
+
+        json response = {
+            {"message", "Enrollment successful"},
+            {"student", {
+                {"studentId", studentId},
+                {"name", studentIt->name},
+                {"class", studentIt->className}
+            }},
+            {"course", {
+                {"courseId", courseId},
+                {"name", courseIt->name}
+            }}
+        };
+
+        return jsonResponse(response, 201);
+    }
+
+    // 取消选课
+    crow::response unenrollStudent(const crow::request& req, const std::string& courseId, const std::string& studentId) {
+        // 验证Token
+        auto token = req.get_header_value("Authorization");
+        if (token.empty() || token.substr(0, 7) != "Bearer ") {
+            return errorResponse("Unauthorized", "Missing token", 401);
+        }
+        
+        // 验证权限（管理员和教师可以取消选课）
+        if (!authManager->hasPermission(token.substr(7), {"admin", "teacher"})) {
+            return errorResponse("Forbidden", "Admin or Teacher only", 403);
+        }
+
+        // 检查课程是否存在
+        auto courses = dataManager->getCourses();
+        auto courseIt = std::find_if(courses.begin(), courses.end(),
+            [&](const Course& c) { return c.id == courseId; });
+        
+        if (courseIt == courses.end()) {
+            return errorResponse("NotFound", "Course not found", 404);
+        }
+
+        // 检查学生是否存在
+        auto students = dataManager->getStudents();
+        auto studentIt = std::find_if(students.begin(), students.end(),
+            [&](const Student& s) { return s.studentId == studentId; });
+        
+        if (studentIt == students.end()) {
+            return errorResponse("NotFound", "Student not found", 404);
+        }
+
+        // 查找选课记录
+        auto grades = dataManager->getGrades();
+        auto gradeIt = std::find_if(grades.begin(), grades.end(),
+            [&](const Grade& g) { 
+                return g.courseId == courseId && g.studentId == studentId; 
+            });
+        
+        if (gradeIt == grades.end()) {
+            return errorResponse("NotFound", "Enrollment not found", 404);
+        }
+
+        // 删除选课记录
+        grades.erase(gradeIt);
+        dataManager->saveGrades(grades);
+
+        // 记录日志
+        auto currentUser = authManager->getCurrentUser(token.substr(7));
+        if (currentUser.has_value()) {
+            logger->logOperation(currentUser.value().id, currentUser.value().username,
+                               "DELETE /courses/" + courseId + "/enroll/" + studentId, "课程管理");
+        }
+
+        json response = {
+            {"message", "Unenrollment successful"},
+            {"student", {
+                {"studentId", studentId},
+                {"name", studentIt->name}
+            }},
+            {"course", {
+                {"courseId", courseId},
+                {"name", courseIt->name}
+            }}
+        };
+
+        return jsonResponse(response);
+    }
 };
 
 #endif // COURSE_SERVICE_H

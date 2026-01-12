@@ -357,15 +357,60 @@ Token 通过登录接口获取，有效期为 24 小时。
 - **Header**: `Authorization: Bearer <token>`
 - **响应**: 学生数组，包含学号、姓名、班级和成绩
 
+#### 28. 学生选课
+- **路径**: `POST /api/courses/<courseId>/enroll`
+- **描述**: 将学生选课到指定课程（管理员/教师权限）
+- **Header**: `Authorization: Bearer <token>`
+- **请求体**:
+```json
+{
+  "studentId": "2024001"
+}
+```
+- **响应**:
+```json
+{
+  "message": "Enrollment successful",
+  "student": {
+    "studentId": "2024001",
+    "name": "李明",
+    "class": "计算机2401"
+  },
+  "course": {
+    "courseId": "CS101",
+    "name": "计算机基础"
+  }
+}
+```
+
+#### 29. 取消选课
+- **路径**: `DELETE /api/courses/<courseId>/enroll/<studentId>`
+- **描述**: 从课程中移除学生（管理员/教师权限）
+- **Header**: `Authorization: Bearer <token>`
+- **响应**:
+```json
+{
+  "message": "Unenrollment successful",
+  "student": {
+    "studentId": "2024001",
+    "name": "李明"
+  },
+  "course": {
+    "courseId": "CS101",
+    "name": "计算机基础"
+  }
+}
+```
+
 ### 五、成绩管理
 
-#### 28. 获取成绩列表
+#### 30. 获取成绩列表
 - **路径**: `GET /api/grades`
 - **描述**: 获取成绩列表
 - **Header**: `Authorization: Bearer <token>`
 - **响应**: 分页格式，包含成绩数组
 
-#### 29. 录入成绩
+#### 31. 录入成绩
 - **路径**: `POST /api/grades`
 - **描述**: 录入成绩（管理员/教师权限）
 - **Header**: `Authorization: Bearer <token>`
@@ -380,7 +425,7 @@ Token 通过登录接口获取，有效期为 24 小时。
 ```
 - **响应**: 创建的成绩信息
 
-#### 30. 更新成绩
+#### 32. 更新成绩
 - **路径**: `PUT /api/grades/<id>`
 - **描述**: 更新成绩（管理员/教师权限）
 - **Header**: `Authorization: Bearer <token>`
@@ -392,13 +437,13 @@ Token 通过登录接口获取，有效期为 24 小时。
 ```
 - **响应**: 更新后的成绩信息
 
-#### 31. 删除成绩
+#### 33. 删除成绩
 - **路径**: `DELETE /api/grades/<id>`
 - **描述**: 删除成绩（管理员/教师权限）
 - **Header**: `Authorization: Bearer <token>`
 - **响应**: `{"message": "Grade deleted successfully"}`
 
-#### 32. 批量导入成绩
+#### 34. 批量导入成绩
 - **路径**: `POST /api/grades/batch`
 - **描述**: 批量导入成绩
 - **Header**: `Authorization: Bearer <token>`
@@ -411,19 +456,19 @@ Token 通过登录接口获取，有效期为 24 小时。
 ```
 - **响应**: `{"success": 2, "failed": 0, "message": "..."}`
 
-#### 33. 导出成绩数据
+#### 35. 导出成绩数据
 - **路径**: `GET /api/grades/export`
 - **描述**: 导出成绩数据（返回 JSON）
 - **Header**: `Authorization: Bearer <token>`
 - **响应**: 成绩数组
 
-#### 34. 获取课程成绩列表
+#### 36. 获取课程成绩列表
 - **路径**: `GET /api/grades/course/<courseId>`
 - **描述**: 获取指定课程的所有成绩
 - **Header**: `Authorization: Bearer <token>`
 - **响应**: 成绩数组，包含学生信息和分数
 
-#### 35. 批量更新成绩
+#### 37. 批量更新成绩
 - **路径**: `POST /api/grades/batch-update`
 - **描述**: 批量更新指定课程的成绩
 - **Header**: `Authorization: Bearer <token>`
@@ -442,7 +487,7 @@ Token 通过登录接口获取，有效期为 24 小时。
 
 ### 六、统计分析
 
-#### 36. 获取统计概览
+#### 38. 获取统计概览
 - **路径**: `GET /api/statistics/overview`
 - **描述**: 获取系统统计概览
 - **Header**: `Authorization: Bearer <token>`
@@ -457,31 +502,31 @@ Token 通过登录接口获取，有效期为 24 小时。
 }
 ```
 
-#### 37. 按班级统计
+#### 39. 按班级统计
 - **路径**: `GET /api/statistics/class`
 - **描述**: 按班级统计成绩
 - **Header**: `Authorization: Bearer <token>`
 - **响应**: 班级统计数组，包含平均分、及格率、前三名等
 
-#### 38. 按课程统计
+#### 40. 按课程统计
 - **路径**: `GET /api/statistics/course`
 - **描述**: 按课程统计成绩
 - **Header**: `Authorization: Bearer <token>`
 - **响应**: 课程统计信息，包含平均分、及格率、最高分、最低分等
 
-#### 39. 获取排名列表
+#### 41. 获取排名列表
 - **路径**: `GET /api/statistics/ranking`
 - **描述**: 获取学生成绩排名
 - **Header**: `Authorization: Bearer <token>`
 - **响应**: 排名数组，包含学生信息和成绩
 
-#### 40. 获取成绩分布
+#### 42. 获取成绩分布
 - **路径**: `GET /api/statistics/distribution`
 - **描述**: 获取成绩分布情况
 - **Header**: `Authorization: Bearer <token>`
 - **响应**: 分数段分布数组，包含各分数段的人数和百分比
 
-#### 41. 生成统计报表
+#### 43. 生成统计报表
 - **路径**: `GET /api/statistics/report`
 - **描述**: 生成统计报表
 - **Header**: `Authorization: Bearer <token>`
@@ -489,19 +534,19 @@ Token 通过登录接口获取，有效期为 24 小时。
 
 ### 七、报表管理
 
-#### 42. 生成成绩单
+#### 44. 生成成绩单
 - **路径**: `GET /api/reports/report-card`
 - **描述**: 生成成绩单（返回 HTML）
 - **Header**: `Authorization: Bearer <token>`
 - **响应**: HTML 格式的成绩单
 
-#### 43. 生成统计报表
+#### 45. 生成统计报表
 - **路径**: `GET /api/reports/statistics`
 - **描述**: 生成统计报表
 - **Header**: `Authorization: Bearer <token>`
 - **响应**: 报表生成结果
 
-#### 44. 打印准备
+#### 46. 打印准备
 - **路径**: `POST /api/reports/print`
 - **描述**: 准备打印数据
 - **Header**: `Authorization: Bearer <token>`
@@ -514,7 +559,7 @@ Token 通过登录接口获取，有效期为 24 小时。
 ```
 - **响应**: 打印用的 HTML
 
-#### 45. 批量打印
+#### 47. 批量打印
 - **路径**: `POST /api/reports/batch-print`
 - **描述**: 批量打印准备
 - **Header**: `Authorization: Bearer <token>`
@@ -529,19 +574,19 @@ Token 通过登录接口获取，有效期为 24 小时。
 
 ### 八、系统管理
 
-#### 46. 创建备份
+#### 48. 创建备份
 - **路径**: `POST /api/system/backup`
 - **描述**: 创建数据备份（管理员权限）
 - **Header**: `Authorization: Bearer <token>`
 - **响应**: 备份信息对象
 
-#### 47. 获取备份列表
+#### 49. 获取备份列表
 - **路径**: `GET /api/system/backups`
 - **描述**: 获取备份列表（管理员权限）
 - **Header**: `Authorization: Bearer <token>`
 - **响应**: 备份数组
 
-#### 48. 恢复备份
+#### 50. 恢复备份
 - **路径**: `POST /api/system/restore`
 - **描述**: 恢复数据备份（管理员权限）
 - **Header**: `Authorization: Bearer <token>`
@@ -553,25 +598,25 @@ Token 通过登录接口获取，有效期为 24 小时。
 ```
 - **响应**: `{"message": "Backup restored successfully"}`
 
-#### 49. 删除备份
+#### 51. 删除备份
 - **路径**: `DELETE /api/system/backups/<backupId>`
 - **描述**: 删除备份（管理员权限）
 - **Header**: `Authorization: Bearer <token>`
 - **响应**: `{"message": "Backup deleted successfully"}`
 
-#### 50. 获取系统日志
+#### 52. 获取系统日志
 - **路径**: `GET /api/system/logs`
 - **描述**: 获取系统日志（管理员权限）
 - **Header**: `Authorization: Bearer <token>`
 - **响应**: 分页格式，包含系统日志数组
 
-#### 51. 获取系统设置
+#### 53. 获取系统设置
 - **路径**: `GET /api/system/settings`
 - **描述**: 获取系统设置（管理员权限）
 - **Header**: `Authorization: Bearer <token>`
 - **响应**: 系统设置对象
 
-#### 52. 更新系统设置
+#### 54. 更新系统设置
 - **路径**: `PUT /api/system/settings`
 - **描述**: 更新系统设置（管理员权限）
 - **Header**: `Authorization: Bearer <token>`
@@ -586,13 +631,13 @@ Token 通过登录接口获取，有效期为 24 小时。
 ```
 - **响应**: `{"message": "Settings updated successfully"}`
 
-#### 53. 清理日志
+#### 55. 清理日志
 - **路径**: `POST /api/system/clean-logs`
 - **描述**: 清理过期日志（管理员权限）
 - **Header**: `Authorization: Bearer <token>`
 - **响应**: `{"message": "Logs cleaned successfully"}`
 
-#### 54. 导出日志
+#### 56. 导出日志
 - **路径**: `GET /api/system/export-logs`
 - **描述**: 导出系统日志（管理员权限）
 - **Header**: `Authorization: Bearer <token>`
@@ -600,7 +645,7 @@ Token 通过登录接口获取，有效期为 24 小时。
 
 ### 九、测试接口
 
-#### 55. 健康检查
+#### 57. 健康检查
 - **路径**: `GET /api/health`
 - **描述**: 服务健康检查
 - **响应**: `{"status": "ok", "message": "Server is running"}`

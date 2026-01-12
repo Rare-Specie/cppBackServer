@@ -254,51 +254,63 @@ int main() {
         return courseService.getCourseStudents(req, courseId);
     });
 
+    // 28. 学生选课
+    CROW_ROUTE(app, "/api/courses/<string>/enroll").methods("POST"_method)
+    ([&](const crow::request& req, const std::string& courseId) {
+        return courseService.enrollStudent(req, courseId);
+    });
+
+    // 29. 取消选课
+    CROW_ROUTE(app, "/api/courses/<string>/enroll/<string>").methods("DELETE"_method)
+    ([&](const crow::request& req, const std::string& courseId, const std::string& studentId) {
+        return courseService.unenrollStudent(req, courseId, studentId);
+    });
+
     // ==================== 成绩相关路由 ====================
 
-    // 28. 获取成绩列表
+    // 30. 获取成绩列表
     CROW_ROUTE(app, "/api/grades").methods("GET"_method)
     ([&](const crow::request& req) {
         return gradeService.getGrades(req);
     });
 
-    // 29. 录入成绩
+    // 31. 录入成绩
     CROW_ROUTE(app, "/api/grades").methods("POST"_method)
     ([&](const crow::request& req) {
         return gradeService.createGrade(req);
     });
 
-    // 30. 更新成绩
+    // 32. 更新成绩
     CROW_ROUTE(app, "/api/grades/<string>").methods("PUT"_method)
     ([&](const crow::request& req, const std::string& id) {
         return gradeService.updateGrade(req, id);
     });
 
-    // 31. 删除成绩
+    // 33. 删除成绩
     CROW_ROUTE(app, "/api/grades/<string>").methods("DELETE"_method)
     ([&](const crow::request& req, const std::string& id) {
         return gradeService.deleteGrade(req, id);
     });
 
-    // 32. 批量导入成绩
+    // 34. 批量导入成绩
     CROW_ROUTE(app, "/api/grades/batch").methods("POST"_method)
     ([&](const crow::request& req) {
         return gradeService.batchImportGrades(req);
     });
 
-    // 33. 导出成绩数据
+    // 35. 导出成绩数据
     CROW_ROUTE(app, "/api/grades/export").methods("GET"_method)
     ([&](const crow::request& req) {
         return gradeService.exportGrades(req);
     });
 
-    // 34. 获取课程成绩列表
+    // 36. 获取课程成绩列表
     CROW_ROUTE(app, "/api/grades/course/<string>").methods("GET"_method)
     ([&](const crow::request& req, const std::string& courseId) {
         return gradeService.getCourseGrades(req, courseId);
     });
 
-    // 35. 批量更新成绩
+    // 37. 批量更新成绩
     CROW_ROUTE(app, "/api/grades/batch-update").methods("POST"_method)
     ([&](const crow::request& req) {
         return gradeService.batchUpdateGrades(req);
@@ -306,37 +318,37 @@ int main() {
 
     // ==================== 统计分析路由 ====================
 
-    // 36. 获取统计概览
+    // 38. 获取统计概览
     CROW_ROUTE(app, "/api/statistics/overview").methods("GET"_method)
     ([&](const crow::request& req) {
         return statisticsService.getOverview(req);
     });
 
-    // 37. 按班级统计
+    // 39. 按班级统计
     CROW_ROUTE(app, "/api/statistics/class").methods("GET"_method)
     ([&](const crow::request& req) {
         return statisticsService.getClassStatistics(req);
     });
 
-    // 38. 按课程统计
+    // 40. 按课程统计
     CROW_ROUTE(app, "/api/statistics/course").methods("GET"_method)
     ([&](const crow::request& req) {
         return statisticsService.getCourseStatistics(req);
     });
 
-    // 39. 获取排名列表
+    // 41. 获取排名列表
     CROW_ROUTE(app, "/api/statistics/ranking").methods("GET"_method)
     ([&](const crow::request& req) {
         return statisticsService.getRanking(req);
     });
 
-    // 40. 获取成绩分布
+    // 42. 获取成绩分布
     CROW_ROUTE(app, "/api/statistics/distribution").methods("GET"_method)
     ([&](const crow::request& req) {
         return statisticsService.getDistribution(req);
     });
 
-    // 41. 生成统计报表
+    // 43. 生成统计报表
     CROW_ROUTE(app, "/api/statistics/report").methods("GET"_method)
     ([&](const crow::request& req) {
         return statisticsService.generateReport(req);
@@ -344,25 +356,25 @@ int main() {
 
     // ==================== 报表管理路由 ====================
 
-    // 42. 生成成绩单
+    // 44. 生成成绩单
     CROW_ROUTE(app, "/api/reports/report-card").methods("GET"_method)
     ([&](const crow::request& req) {
         return reportService.generateReportCard(req);
     });
 
-    // 43. 生成统计报表
+    // 45. 生成统计报表
     CROW_ROUTE(app, "/api/reports/statistics").methods("GET"_method)
     ([&](const crow::request& req) {
         return reportService.generateStatisticsReport(req);
     });
 
-    // 44. 打印准备
+    // 46. 打印准备
     CROW_ROUTE(app, "/api/reports/print").methods("POST"_method)
     ([&](const crow::request& req) {
         return reportService.printPrepare(req);
     });
 
-    // 45. 批量打印
+    // 47. 批量打印
     CROW_ROUTE(app, "/api/reports/batch-print").methods("POST"_method)
     ([&](const crow::request& req) {
         return reportService.batchPrint(req);
@@ -370,55 +382,55 @@ int main() {
 
     // ==================== 系统管理路由 ====================
 
-    // 46. 创建备份
+    // 48. 创建备份
     CROW_ROUTE(app, "/api/system/backup").methods("POST"_method)
     ([&](const crow::request& req) {
         return systemService.createBackup(req);
     });
 
-    // 47. 获取备份列表
+    // 49. 获取备份列表
     CROW_ROUTE(app, "/api/system/backups").methods("GET"_method)
     ([&](const crow::request& req) {
         return systemService.getBackups(req);
     });
 
-    // 48. 恢复备份
+    // 50. 恢复备份
     CROW_ROUTE(app, "/api/system/restore").methods("POST"_method)
     ([&](const crow::request& req) {
         return systemService.restoreBackup(req);
     });
 
-    // 49. 删除备份
+    // 51. 删除备份
     CROW_ROUTE(app, "/api/system/backups/<string>").methods("DELETE"_method)
     ([&](const crow::request& req, const std::string& backupId) {
         return systemService.deleteBackup(req, backupId);
     });
 
-    // 50. 获取系统日志
+    // 52. 获取系统日志
     CROW_ROUTE(app, "/api/system/logs").methods("GET"_method)
     ([&](const crow::request& req) {
         return systemService.getSystemLogs(req);
     });
 
-    // 51. 获取系统设置
+    // 53. 获取系统设置
     CROW_ROUTE(app, "/api/system/settings").methods("GET"_method)
     ([&](const crow::request& req) {
         return systemService.getSettings(req);
     });
 
-    // 52. 更新系统设置
+    // 54. 更新系统设置
     CROW_ROUTE(app, "/api/system/settings").methods("PUT"_method)
     ([&](const crow::request& req) {
         return systemService.updateSettings(req);
     });
 
-    // 53. 清理日志
+    // 55. 清理日志
     CROW_ROUTE(app, "/api/system/clean-logs").methods("POST"_method)
     ([&](const crow::request& req) {
         return systemService.cleanLogs(req);
     });
 
-    // 54. 导出日志
+    // 56. 导出日志
     CROW_ROUTE(app, "/api/system/export-logs").methods("GET"_method)
     ([&](const crow::request& req) {
         return systemService.exportLogs(req);
