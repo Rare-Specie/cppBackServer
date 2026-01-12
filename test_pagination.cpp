@@ -35,6 +35,17 @@ TEST_CASE("parsePaginationParams handles valid inputs", "[pagination]") {
         REQUIRE(page == 5);
         REQUIRE(limit == 50);
     }
+
+    SECTION("URL 查询参数优先") {
+        // 使用 url 查询参数 ?page=2&limit=25，且同时存在 header，优先使用 url 参数
+        req.url_params.add("page", "2");
+        req.url_params.add("limit", "25");
+        req.add_header("X-Page", "1");
+        req.add_header("X-Limit", "5");
+        auto [page2, limit2] = parsePaginationParams(req, 1, 10, 1000);
+        REQUIRE(page2 == 2);
+        REQUIRE(limit2 == 25);
+    }
     
     SECTION("超过最大限制") {
         req.add_header("X-Limit", "2000");

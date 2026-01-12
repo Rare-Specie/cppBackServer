@@ -221,56 +221,63 @@ json paginateWithISO(const std::vector<T>& data, int page, int limit,
 
 // 解析分页参数（支持字符串和整数，带验证）
 inline std::pair<int, int> parsePaginationParams(const crow::request& req, int defaultPage = 1, int defaultLimit = 10, int maxLimit = 1000) {
-    std::string pageStr = req.get_header_value("X-Page");
-    std::string limitStr = req.get_header_value("X-Limit");
+    // 优先从 URL 查询参数读取 ?page=&limit=，若不存在再回退到 X-Page/X-Limit 头（向后兼容）
+    std::string pageStr;
+    std::string limitStr;
+    if (req.url_params.get("page") != nullptr) {
+        pageStr = req.url_params.get("page");
+    } else {
+        pageStr = req.get_header_value("X-Page");
+    }
+    if (req.url_params.get("limit") != nullptr) {
+        limitStr = req.url_params.get("limit");
+    } else {
+        limitStr = req.get_header_value("X-Limit");
+    }
+
+    int page = defaultPage;
+    int limit = defaultLimit;
+    std::string reason = "";
     
-        // 从URL查询参数获取（Crow框架中通过req.url_params获取）
-        // 注意：Crow框架中查询参数需要通过req.url_params获取
-        // 这里简化处理，实际应该解析URL参数
-        
-        int page = defaultPage;
-        int limit = defaultLimit;
-        std::string reason = "";
-        
-        // 解析page
-        if (!pageStr.empty()) {
-            try {
-                int parsed = std::stoi(pageStr);
-                if (parsed > 0) {
-                    page = parsed;
-                } else {
-                    reason = "page参数必须为正整数";
-                    page = defaultPage;
-                }
-            } catch (...) {
-                reason = "page参数格式无效";
+    // 解析page
+    if (!pageStr.empty()) {
+        try {
+            int parsed = std::stoi(pageStr);
+            if (parsed > 0) {
+                page = parsed;
+            } else {
+                reason = "page参数必须为正整数";
                 page = defaultPage;
             }
+        } catch (...) {
+            reason = "page参数格式无效";
+            page = defaultPage;
         }
-        
-        // 解析limit
-        if (!limitStr.empty()) {
-            try {
-                int parsed = std::stoi(limitStr);
-                if (parsed > 0) {
-                    if (parsed > maxLimit) {
-                        limit = maxLimit;
-                        reason = "limit参数超过最大值" + std::to_string(maxLimit) + "，已自动调整";
-                    } else {
-                        limit = parsed;
-                    }
+    }
+    
+    // 解析limit
+    if (!limitStr.empty()) {
+        try {
+            int parsed = std::stoi(limitStr);
+            if (parsed > 0) {
+                if (parsed > maxLimit) {
+                    limit = maxLimit;
+                    reason = "limit参数超过最大值" + std::to_string(maxLimit) + "，已自动调整";
                 } else {
-                    reason = "limit参数必须为正整数";
-                    limit = defaultLimit;
+                    limit = parsed;
                 }
-            } catch (...) {
-                reason = "limit参数格式无效";
+            } else {
+                reason = "limit参数必须为正整数";
                 limit = defaultLimit;
             }
+        } catch (...) {
+            reason = "limit参数格式无效";
+            limit = defaultLimit;
         }
-        
-        return {page, limit};
     }
+    
+    return {page, limit};
+}
     
     // 解析字段选择参数
     inline std::vector<std::string> parseFieldsParam(const crow::request& req) {

@@ -1,8 +1,0 @@
-[
-  {
-    "backupInterval": 7,
-    "logRetentionDays": 30,
-    "maxLoginAttempts": 5,
-    "sessionTimeout": 30
-  }
-]
