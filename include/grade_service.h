@@ -39,6 +39,18 @@ public:
         std::string courseId = "";
         std::string classFilter = "";
 
+        // 如果是学生角色，则强制使用其绑定的 studentId，确保只能看到自己的成绩
+        auto currentUser = authManager->getCurrentUser(token.substr(7));
+        if (currentUser.has_value()) {
+            if (currentUser.value().role == "student") {
+                if (currentUser.value().studentId.has_value()) {
+                    studentId = currentUser.value().studentId.value();
+                } else {
+                    return errorResponse("Forbidden", "Student account not bound to a student record", 403);
+                }
+            }
+        }
+
         auto grades = dataManager->getGrades();
         auto students = dataManager->getStudents();
         auto courses = dataManager->getCourses();
@@ -63,7 +75,6 @@ public:
         auto result = paginate(filtered, page, limit);
         
         // 记录日志
-        auto currentUser = authManager->getCurrentUser(token.substr(7));
         if (currentUser.has_value()) {
             logger->logOperation(currentUser.value().id, currentUser.value().username,
                                "GET /grades", "成绩管理");

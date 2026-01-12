@@ -52,6 +52,8 @@
 
 > 说明: 管理类接口多数需要 `admin` 权限。所有用户对象参考 `User` model。
 
+> 新增: `User` 对象支持可选字段 `studentId`，当 `role` 为 `student` 时可绑定到对应的 `Student.studentId`，绑定后学生登录即可查看自己的成绩。
+
 ### GET /users
 - 描述: 获取用户列表（管理员）
 - 认证: `Authorization: Bearer <token>`（需要 role=`admin`）
@@ -221,6 +223,7 @@
 ### GET /grades
 - 认证: 必需
 - 支持按 `studentId` / `courseId` / `class` 筛选
+- 如果当前用户为学生且已绑定 `studentId`，则自动返回该学生的成绩（学生不能访问其他学生的成绩）
 - 返回分页
 
 ### POST /grades (admin|teacher)

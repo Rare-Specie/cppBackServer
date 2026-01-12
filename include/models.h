@@ -16,6 +16,7 @@ struct User {
     std::string role; // admin, teacher, student
     std::string name;
     std::optional<std::string> className;
+    std::optional<std::string> studentId; // 绑定到 Student.studentId（仅当 role == "student" 时有效）
     std::string createdAt;
     std::string updatedAt;
 
@@ -33,6 +34,9 @@ struct User {
         if (u.className.has_value()) {
             j["class"] = u.className.value();
         }
+        if (u.studentId.has_value()) {
+            j["studentId"] = u.studentId.value();
+        }
     }
 
     friend void from_json(const json& j, User& u) {
@@ -45,6 +49,9 @@ struct User {
         j.at("name").get_to(u.name);
         if (j.contains("class") && !j["class"].is_null()) {
             u.className = j["class"].get<std::string>();
+        }
+        if (j.contains("studentId") && !j["studentId"].is_null()) {
+            u.studentId = j["studentId"].get<std::string>();
         }
         j.at("createdAt").get_to(u.createdAt);
         j.at("updatedAt").get_to(u.updatedAt);

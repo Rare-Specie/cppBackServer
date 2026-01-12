@@ -26,6 +26,7 @@
     "name": "李学生",
     "passwordHash": "703b0a3d6ad75b649a28adde7d83c6251da457549263bc7ff45ec709b0a8448b",
     "role": "student",
+    "studentId": "114514",
     "updatedAt": "Mon Jan 12 13:03:12 2026",
     "username": "student"
   }

@@ -1,11 +1,11 @@
 [
   {
-    "class": "01",
-    "createdAt": "Mon Jan 12 13:13:03 2026",
+    "class": "cs2",
+    "createdAt": "Mon Jan 12 15:17:38 2026",
     "gender": "male",
-    "id": "1768194783_143542612",
-    "name": "student",
-    "studentId": "01",
-    "updatedAt": "Mon Jan 12 13:13:03 2026"
+    "id": "1768202258_1622650073",
+    "name": "cs1",
+    "studentId": "114514",
+    "updatedAt": "Mon Jan 12 15:17:38 2026"
   }
 ]

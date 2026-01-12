@@ -101,11 +101,26 @@ public:
             className = body["class"];
         }
 
+        // 可选 studentId（仅在 role == "student" 时使用）
+        std::optional<std::string> studentId;
+        if (body.contains("studentId") && !body["studentId"].is_null()) {
+            studentId = body["studentId"];
+        }
+
         // 验证角色
         if (role != "admin" && role != "teacher" && role != "student") {
             return errorResponse("BadRequest", "Invalid role", 400);
         }
 
+        // 如果是学生且传入了 studentId，则验证该学生存在
+        if (role == "student" && studentId.has_value()) {
+            auto students = dataManager->getStudents();
+            auto sIt = std::find_if(students.begin(), students.end(),
+                [&](const Student& s) { return s.studentId == studentId.value(); });
+            if (sIt == students.end()) {
+                return errorResponse("NotFound", "Student record not found for given studentId", 404);
+            }
+        }
         // 检查用户名是否已存在
         auto users = dataManager->getUsers();
         auto it = std::find_if(users.begin(), users.end(),
@@ -122,6 +137,7 @@ public:
             role,
             name,
             className,
+            studentId,
             dataManager->getCurrentTimestamp(),
             dataManager->getCurrentTimestamp()
         };
@@ -177,6 +193,22 @@ public:
             std::string role = body["role"];
             if (role == "admin" || role == "teacher" || role == "student") {
                 it->role = role;
+            }
+        }
+        // 更新 studentId（仅适用于学生账号）
+        if (body.contains("studentId")) {
+            if (body["studentId"].is_null()) {
+                it->studentId = std::nullopt;
+            } else {
+                std::string newStudentId = body["studentId"];
+                // 验证学生存在
+                auto students = dataManager->getStudents();
+                auto sIt = std::find_if(students.begin(), students.end(),
+                    [&](const Student& s) { return s.studentId == newStudentId; });
+                if (sIt == students.end()) {
+                    return errorResponse("NotFound", "Student record not found for given studentId", 404);
+                }
+                it->studentId = newStudentId;
             }
         }
 
@@ -280,6 +312,21 @@ public:
                     continue;
                 }
 
+                std::optional<std::string> batchStudentId;
+                if (userData.contains("studentId") && !userData["studentId"].is_null()) {
+                    batchStudentId = userData["studentId"];
+                    // 如果是学生，验证学生记录存在
+                    if (role == "student") {
+                        auto students = dataManager->getStudents();
+                        auto sIt = std::find_if(students.begin(), students.end(),
+                            [&](const Student& s) { return s.studentId == batchStudentId.value(); });
+                        if (sIt == students.end()) {
+                            failed++;
+                            continue;
+                        }
+                    }
+                }
+
                 User newUser{
                     dataManager->generateId(),
                     username,
@@ -288,6 +335,7 @@ public:
                     name,
                     userData.contains("class") && !userData["class"].is_null() ? 
                         std::optional<std::string>(userData["class"]) : std::nullopt,
+                    batchStudentId,
                     dataManager->getCurrentTimestamp(),
                     dataManager->getCurrentTimestamp()
                 };
