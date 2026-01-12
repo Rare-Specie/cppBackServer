@@ -6,6 +6,7 @@
 [![Platform](https://img.shields.io/badge/Platform-macOS%20%7C%20Windows-lightgrey.svg)]()
 
 一个基于 C++ 和 Crow 框架开发的高性能学生成绩管理系统后端服务。支持完整的用户管理、学生管理、课程管理、成绩管理、统计分析、报表生成和系统管理功能。
+## Winnows编译release在/build_windows中
 
 ## ✨ 特性
 
