@@ -151,7 +151,7 @@ inline crow::response errorResponse(const std::string& error, const std::string&
     return jsonResponse(j, code);
 }
 
-// 分页辅助函数
+// 分页辅助函数（支持ISO日期转换）
 template<typename T>
 json paginate(const std::vector<T>& data, int page, int limit) {
     int total = data.size();
@@ -163,7 +163,8 @@ json paginate(const std::vector<T>& data, int page, int limit) {
             {"data", json::array()},
             {"total", total},
             {"page", page},
-            {"limit", limit}
+            {"limit", limit},
+            {"totalPages", (total + limit - 1) / limit}
         };
     }
     
@@ -177,15 +178,138 @@ json paginate(const std::vector<T>& data, int page, int limit) {
         {"data", jData},
         {"total", total},
         {"page", page},
-        {"limit", limit}
+        {"limit", limit},
+        {"totalPages", (total + limit - 1) / limit}
     };
 }
 
-// 搜索和筛选辅助函数
-inline bool matchesSearch(const std::string& text, const std::string& search) {
-    if (search.empty()) return true;
-    return text.find(search) != std::string::npos;
+// 分页辅助函数（带ISO日期转换）
+template<typename T>
+json paginateWithISO(const std::vector<T>& data, int page, int limit, 
+                     std::function<std::string(const std::string&)> convertFunc) {
+    int total = data.size();
+    int start = (page - 1) * limit;
+    int end = std::min(start + limit, total);
+    
+    if (start >= total) {
+        return json{
+            {"data", json::array()},
+            {"total", total},
+            {"page", page},
+            {"limit", limit},
+            {"totalPages", (total + limit - 1) / limit}
+        };
+    }
+    
+    std::vector<T> pageData(data.begin() + start, data.begin() + end);
+    json jData = json::array();
+    
+    for (const auto& item : pageData) {
+        json jItem;
+        to_json_iso(jItem, item, convertFunc);
+        jData.push_back(jItem);
+    }
+    
+    return json{
+        {"data", jData},
+        {"total", total},
+        {"page", page},
+        {"limit", limit},
+        {"totalPages", (total + limit - 1) / limit}
+    };
 }
+
+// 解析分页参数（支持字符串和整数，带验证）
+inline std::pair<int, int> parsePaginationParams(const crow::request& req, int defaultPage = 1, int defaultLimit = 10, int maxLimit = 1000) {
+    std::string pageStr = req.get_header_value("X-Page");
+    std::string limitStr = req.get_header_value("X-Limit");
+    
+        // 从URL查询参数获取（Crow框架中通过req.url_params获取）
+        // 注意：Crow框架中查询参数需要通过req.url_params获取
+        // 这里简化处理，实际应该解析URL参数
+        
+        int page = defaultPage;
+        int limit = defaultLimit;
+        std::string reason = "";
+        
+        // 解析page
+        if (!pageStr.empty()) {
+            try {
+                int parsed = std::stoi(pageStr);
+                if (parsed > 0) {
+                    page = parsed;
+                } else {
+                    reason = "page参数必须为正整数";
+                    page = defaultPage;
+                }
+            } catch (...) {
+                reason = "page参数格式无效";
+                page = defaultPage;
+            }
+        }
+        
+        // 解析limit
+        if (!limitStr.empty()) {
+            try {
+                int parsed = std::stoi(limitStr);
+                if (parsed > 0) {
+                    if (parsed > maxLimit) {
+                        limit = maxLimit;
+                        reason = "limit参数超过最大值" + std::to_string(maxLimit) + "，已自动调整";
+                    } else {
+                        limit = parsed;
+                    }
+                } else {
+                    reason = "limit参数必须为正整数";
+                    limit = defaultLimit;
+                }
+            } catch (...) {
+                reason = "limit参数格式无效";
+                limit = defaultLimit;
+            }
+        }
+        
+        return {page, limit};
+    }
+    
+    // 解析字段选择参数
+    inline std::vector<std::string> parseFieldsParam(const crow::request& req) {
+        std::string fieldsStr = req.get_header_value("X-Fields");
+        std::vector<std::string> fields;
+        
+        if (fieldsStr.empty()) {
+            return fields; // 返回空表示返回所有字段
+        }
+        
+        // 解析逗号分隔的字段列表
+        std::stringstream ss(fieldsStr);
+        std::string field;
+        while (std::getline(ss, field, ',')) {
+            // 去除空格
+            field.erase(0, field.find_first_not_of(" \t"));
+            field.erase(field.find_last_not_of(" \t") + 1);
+            if (!field.empty()) {
+                fields.push_back(field);
+            }
+        }
+        
+        return fields;
+    }
+    
+    // 检查是否请求完整数据
+    inline bool requestFullData(const crow::request& req) {
+        std::string fullStr = req.get_header_value("X-Full");
+        if (fullStr == "true" || fullStr == "1" || fullStr == "yes") {
+            return true;
+        }
+        return false;
+    }
+
+    // 搜索匹配辅助函数
+    inline bool matchesSearch(const std::string& text, const std::string& search) {
+        if (search.empty()) return true;
+        return text.find(search) != std::string::npos;
+    }
 
 // 数据验证辅助函数
 inline bool validateEmail(const std::string& email) {

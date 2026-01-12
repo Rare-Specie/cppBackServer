@@ -29,16 +29,5 @@
     "studentId": "114514",
     "updatedAt": "Mon Jan 12 13:03:12 2026",
     "username": "student"
-  },
-  {
-    "class": "02",
-    "createdAt": "Mon Jan 12 15:49:37 2026",
-    "id": "1768204177_1954899097",
-    "name": "哈吉米",
-    "passwordHash": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
-    "role": "student",
-    "studentId": "student2",
-    "updatedAt": "Mon Jan 12 15:49:37 2026",
-    "username": "student2"
   }
 ]

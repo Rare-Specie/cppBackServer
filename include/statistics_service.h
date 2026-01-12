@@ -300,10 +300,16 @@ public:
             return errorResponse("Unauthorized", "Invalid token", 401);
         }
 
-        // 获取查询参数
-        std::string classFilter = "";
-        std::string courseId = "";
-        int limit = 10;
+        // 解析分页参数（支持字符串和整数）
+        auto [page, limit] = parsePaginationParams(req, 1, 10, 1000);
+        
+        // 获取过滤参数
+        std::string classFilter = req.get_header_value("X-Query-Class");
+        std::string courseId = req.get_header_value("X-Query-CourseId");
+        
+        // 解析字段选择参数
+        bool fullData = requestFullData(req);
+        std::vector<std::string> fields = parseFieldsParam(req);
 
         auto students = dataManager->getStudents();
         auto grades = dataManager->getGrades();
@@ -363,33 +369,63 @@ public:
         std::sort(rankings.begin(), rankings.end(),
             [](const RankData& a, const RankData& b) { return a.avgScore > b.avgScore; });
 
-        // 限制数量
-        if (rankings.size() > limit) {
-            rankings.resize(limit);
-        }
-
+        // 分页
+        int total = rankings.size();
+        int start = (page - 1) * limit;
+        int end = std::min(start + limit, total);
+        
         // 构建结果
         json result = json::array();
-        for (size_t i = 0; i < rankings.size(); i++) {
-            result.push_back({
-                {"rank", static_cast<int>(i + 1)},
-                {"studentId", rankings[i].studentId},
-                {"name", rankings[i].name},
-                {"class", rankings[i].className},
-                {"totalScore", rankings[i].totalScore},
-                {"avgScore", rankings[i].avgScore},
-                {"courseCount", rankings[i].courseCount}
-            });
+        if (start < total) {
+            for (int i = start; i < end; i++) {
+                json item = {
+                    {"rank", i + 1},
+                    {"studentId", rankings[i].studentId},
+                    {"name", rankings[i].name},
+                    {"class", rankings[i].className},
+                    {"totalScore", rankings[i].totalScore},
+                    {"avgScore", rankings[i].avgScore},
+                    {"courseCount", rankings[i].courseCount}
+                };
+                
+                // 如果指定了fields，进行字段过滤
+                if (!fields.empty()) {
+                    json filteredItem;
+                    for (const auto& field : fields) {
+                        if (item.contains(field)) {
+                            filteredItem[field] = item[field];
+                        }
+                    }
+                    result.push_back(filteredItem);
+                } else {
+                    result.push_back(item);
+                }
+            }
         }
+        
+        // 包装成分页格式
+        json response = {
+            {"data", result},
+            {"total", total},
+            {"page", page},
+            {"limit", limit},
+            {"totalPages", (total + limit - 1) / limit}
+        };
 
-        // 记录日志
+        // 记录日志（包含分页参数）
         auto currentUser = authManager->getCurrentUser(token.substr(7));
         if (currentUser.has_value()) {
+            std::string logMsg = "GET /statistics/ranking | page=" + std::to_string(page) + 
+                               ", limit=" + std::to_string(limit) + 
+                               ", total=" + std::to_string(total);
+            if (!fields.empty()) {
+                logMsg += ", fields=" + std::to_string(fields.size());
+            }
             logger->logOperation(currentUser.value().id, currentUser.value().username,
-                               "GET /statistics/ranking", "统计分析");
+                               logMsg, "统计分析");
         }
 
-        return jsonResponse(result);
+        return jsonResponse(response);
     }
 
     // 获取成绩分布
@@ -404,9 +440,9 @@ public:
             return errorResponse("Unauthorized", "Invalid token", 401);
         }
 
-        // 获取查询参数
-        std::string courseId = "";
-        std::string classFilter = "";
+        // 获取过滤参数
+        std::string courseId = req.get_header_value("X-Query-CourseId");
+        std::string classFilter = req.get_header_value("X-Query-Class");
 
         auto grades = dataManager->getGrades();
         auto students = dataManager->getStudents();

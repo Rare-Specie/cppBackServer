@@ -177,16 +177,21 @@ public:
             return errorResponse("Forbidden", "Admin only", 403);
         }
 
-        // 获取查询参数
-        int page = 1;
-        int limit = 10;
-        std::string level = "";
-        std::string startTime = "";
-        std::string endTime = "";
+        // 解析分页参数（支持字符串和整数）
+        auto [page, limit] = parsePaginationParams(req, 1, 10, 1000);
+        
+        // 获取过滤参数
+        std::string level = req.get_header_value("X-Query-Level");
+        std::string startTime = req.get_header_value("X-Query-StartTime");
+        std::string endTime = req.get_header_value("X-Query-EndTime");
+        
+        // 解析字段选择参数
+        bool fullData = requestFullData(req);
+        std::vector<std::string> fields = parseFieldsParam(req);
 
         auto logs = dataManager->getSystemLogs();
         
-        // 筛选
+        // 筛选（先过滤再分页）
         std::vector<SystemLog> filtered;
         for (const auto& log : logs) {
             if (!level.empty() && log.level != level) continue;
@@ -194,10 +199,26 @@ public:
             filtered.push_back(log);
         }
 
-        // 分页
-        auto result = paginate(filtered, page, limit);
-
-        // 记录日志
+        // 分页（使用ISO日期格式）
+        auto result = paginateWithISO(filtered, page, limit, 
+            [this](const std::string& ts) { return dataManager->convertToISO8601(ts); });
+        
+        // 如果指定了fields，进行字段过滤
+        if (!fields.empty() && result.contains("data")) {
+            json filteredData = json::array();
+            for (auto& item : result["data"]) {
+                json filteredItem;
+                for (const auto& field : fields) {
+                    if (item.contains(field)) {
+                        filteredItem[field] = item[field];
+                    }
+                }
+                filteredData.push_back(filteredItem);
+            }
+            result["data"] = filteredData;
+        }
+        
+        // 记录日志（包含分页参数）
         auto currentUser = authManager->getCurrentUser(token.substr(7));
         if (currentUser.has_value()) {
             logger->logOperation(currentUser.value().id, currentUser.value().username,
@@ -315,9 +336,9 @@ public:
         }
 
         // 获取查询参数
-        std::string level = "";
-        std::string startTime = "";
-        std::string endTime = "";
+        std::string level = req.get_header_value("X-Query-Level");
+        std::string startTime = req.get_header_value("X-Query-StartTime");
+        std::string endTime = req.get_header_value("X-Query-EndTime");
 
         auto logs = dataManager->getSystemLogs();
         
@@ -325,6 +346,7 @@ public:
         std::vector<SystemLog> filtered;
         for (const auto& log : logs) {
             if (!level.empty() && log.level != level) continue;
+            // 时间筛选简化处理
             filtered.push_back(log);
         }
 
@@ -337,7 +359,7 @@ public:
                 {"message", log.message},
                 {"module", log.module},
                 {"ip", log.ip.value_or("")},
-                {"createdAt", log.createdAt}
+                {"createdAt", dataManager->convertToISO8601(log.createdAt)}
             });
         }
 

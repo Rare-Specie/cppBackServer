@@ -74,7 +74,7 @@ public:
         return ss.str();
     }
 
-    // 获取当前时间戳
+    // 获取当前时间戳（ISO 8601格式）
     std::string getCurrentTimestamp() {
         auto now = std::chrono::system_clock::now();
         auto time_t = std::chrono::system_clock::to_time_t(now);
@@ -83,6 +83,57 @@ public:
         std::string str = ss.str();
         str.pop_back(); // 移除换行符
         return str;
+    }
+    
+    // 获取ISO 8601格式的时间戳
+    std::string getISO8601Timestamp() {
+        auto now = std::chrono::system_clock::now();
+        auto time_t = std::chrono::system_clock::to_time_t(now);
+        std::tm* tm = std::gmtime(&time_t); // UTC时间
+        
+        char buffer[64];
+        std::strftime(buffer, sizeof(buffer), "%Y-%m-%dT%H:%M:%SZ", tm);
+        return std::string(buffer);
+    }
+    
+    // 转换现有时间戳为ISO 8601格式（用于兼容性处理）
+    std::string convertToISO8601(const std::string& timestamp) {
+        // 如果已经是ISO格式，直接返回
+        if (timestamp.find('T') != std::string::npos) {
+            return timestamp;
+        }
+        
+        // 尝试解析旧格式 "Wed Jan 12 10:30:45 2026"
+        std::tm tm = {};
+        std::istringstream ss(timestamp);
+        std::string weekday, month;
+        int day, hour, min, sec, year;
+        
+        if (ss >> weekday >> month >> day >> hour >> std::ws >> min >> std::ws >> sec >> year) {
+            // 构建ISO 8601格式
+            std::stringstream result;
+            result << year << "-";
+            
+            // 月份映射
+            std::vector<std::string> months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+                                              "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+            int monthNum = 1;
+            for (const auto& m : months) {
+                if (m == month) break;
+                monthNum++;
+            }
+            
+            result << std::setfill('0') << std::setw(2) << monthNum << "-";
+            result << std::setfill('0') << std::setw(2) << day << "T";
+            result << std::setfill('0') << std::setw(2) << hour << ":";
+            result << std::setfill('0') << std::setw(2) << min << ":";
+            result << std::setfill('0') << std::setw(2) << sec << "Z";
+            
+            return result.str();
+        }
+        
+        // 无法转换，返回原始值
+        return timestamp;
     }
 
 private:

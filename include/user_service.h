@@ -32,18 +32,16 @@ public:
             return errorResponse("Forbidden", "Admin only", 403);
         }
 
-        // 获取查询参数
+        // 解析分页参数（支持字符串和整数）
+        auto [page, limit] = parsePaginationParams(req, 1, 10, 1000);
+        
+        // 获取过滤参数
         std::string role = req.get_header_value("X-Query-Role");
         std::string search = req.get_header_value("X-Query-Search");
-        int page = 1;
-        int limit = 10;
-        
-        // 解析URL参数（Crow框架中需要手动处理）
-        // 这里简化处理，实际应该解析URL参数
 
         auto users = dataManager->getUsers();
         
-        // 筛选
+        // 筛选（先过滤再分页）
         std::vector<User> filtered;
         for (const auto& user : users) {
             if (!role.empty() && user.role != role) continue;
@@ -53,14 +51,18 @@ public:
             filtered.push_back(user);
         }
 
-        // 分页
-        auto result = paginate(filtered, page, limit);
+        // 分页（使用ISO日期格式）
+        auto result = paginateWithISO(filtered, page, limit, 
+            [this](const std::string& ts) { return dataManager->convertToISO8601(ts); });
         
-        // 记录日志
+        // 记录日志（包含分页参数）
         auto currentUser = authManager->getCurrentUser(token.substr(7));
         if (currentUser.has_value()) {
+            std::string logMsg = "GET /users | page=" + std::to_string(page) + 
+                               ", limit=" + std::to_string(limit) + 
+                               ", filtered=" + std::to_string(filtered.size());
             logger->logOperation(currentUser.value().id, currentUser.value().username, 
-                               "GET /users", "用户管理");
+                               logMsg, "用户管理");
         }
 
         return jsonResponse(result);
@@ -263,7 +265,7 @@ public:
         return jsonResponse(std::string("User deleted successfully"));
     }
 
-    // 批量导入用户
+    // 批量导入用户（支持两种格式）
     crow::response batchImportUsers(const crow::request& req) {
         // 验证权限
         auto token = req.get_header_value("Authorization");
@@ -283,32 +285,73 @@ public:
             return errorResponse("BadRequest", "Invalid JSON", 400);
         }
 
-        if (!body.contains("users") || !body["users"].is_array()) {
-            return errorResponse("BadRequest", "Missing users array", 400);
+        // 支持两种格式：直接数组或 {users: [...]}
+        json usersArray;
+        if (body.is_array()) {
+            usersArray = body;
+        } else if (body.is_object() && body.contains("users") && body["users"].is_array()) {
+            usersArray = body["users"];
+        } else {
+            return errorResponse("BadRequest", "Expected array of users or {users: [...]}", 400);
         }
 
-        auto users = dataManager->getUsers();
-        int success = 0;
-        int failed = 0;
+        auto existingUsers = dataManager->getUsers();
+        json successItems = json::array();
+        json failedItems = json::array();
 
-        for (const auto& userData : body["users"]) {
+        for (size_t i = 0; i < usersArray.size(); ++i) {
+            const auto& userData = usersArray[i];
+            json errorDetails = json::object();
+            errorDetails["index"] = i;
+            
             try {
+                // 验证必填字段
+                if (!userData.contains("username") || userData["username"].is_null()) {
+                    errorDetails["error"] = "Missing required field: username";
+                    failedItems.push_back(errorDetails);
+                    continue;
+                }
+                if (!userData.contains("password") || userData["password"].is_null()) {
+                    errorDetails["error"] = "Missing required field: password";
+                    failedItems.push_back(errorDetails);
+                    continue;
+                }
+                if (!userData.contains("role") || userData["role"].is_null()) {
+                    errorDetails["error"] = "Missing required field: role";
+                    failedItems.push_back(errorDetails);
+                    continue;
+                }
+                if (!userData.contains("name") || userData["name"].is_null()) {
+                    errorDetails["error"] = "Missing required field: name";
+                    failedItems.push_back(errorDetails);
+                    continue;
+                }
+
                 std::string username = userData["username"];
                 std::string password = userData["password"];
                 std::string role = userData["role"];
                 std::string name = userData["name"];
                 
-                // 验证
+                // 验证角色
                 if (role != "admin" && role != "teacher" && role != "student") {
-                    failed++;
+                    errorDetails["error"] = "Invalid role: " + role;
+                    failedItems.push_back(errorDetails);
+                    continue;
+                }
+
+                // 验证密码长度
+                if (password.length() < 6) {
+                    errorDetails["error"] = "Password must be at least 6 characters";
+                    failedItems.push_back(errorDetails);
                     continue;
                 }
 
                 // 检查重复
-                auto it = std::find_if(users.begin(), users.end(),
+                auto it = std::find_if(existingUsers.begin(), existingUsers.end(),
                     [&](const User& u) { return u.username == username; });
-                if (it != users.end()) {
-                    failed++;
+                if (it != existingUsers.end()) {
+                    errorDetails["error"] = "Username already exists: " + username;
+                    failedItems.push_back(errorDetails);
                     continue;
                 }
 
@@ -321,12 +364,14 @@ public:
                         auto sIt = std::find_if(students.begin(), students.end(),
                             [&](const Student& s) { return s.studentId == batchStudentId.value(); });
                         if (sIt == students.end()) {
-                            failed++;
+                            errorDetails["error"] = "Student record not found for studentId: " + batchStudentId.value();
+                            failedItems.push_back(errorDetails);
                             continue;
                         }
                     }
                 }
 
+                // 创建用户
                 User newUser{
                     dataManager->generateId(),
                     username,
@@ -339,28 +384,54 @@ public:
                     dataManager->getCurrentTimestamp(),
                     dataManager->getCurrentTimestamp()
                 };
-                users.push_back(newUser);
-                success++;
+                existingUsers.push_back(newUser);
+                
+                // 记录成功项
+                json successItem = json::object();
+                successItem["index"] = i;
+                successItem["username"] = username;
+                successItem["role"] = role;
+                successItems.push_back(successItem);
+                
+            } catch (const std::exception& e) {
+                errorDetails["error"] = "Unexpected error: " + std::string(e.what());
+                failedItems.push_back(errorDetails);
             } catch (...) {
-                failed++;
+                errorDetails["error"] = "Unknown error occurred";
+                failedItems.push_back(errorDetails);
             }
         }
 
-        dataManager->saveUsers(users);
+        // 保存数据
+        if (successItems.size() > 0) {
+            dataManager->saveUsers(existingUsers);
+        }
 
         // 记录日志
         auto currentUser = authManager->getCurrentUser(token.substr(7));
         if (currentUser.has_value()) {
+            std::string logMsg = "POST /users/batch | total=" + std::to_string(usersArray.size()) +
+                               ", success=" + std::to_string(successItems.size()) +
+                               ", failed=" + std::to_string(failedItems.size());
             logger->logOperation(currentUser.value().id, currentUser.value().username,
-                               "POST /users/batch", "用户管理");
+                               logMsg, "用户管理");
         }
 
         json response = {
-            {"success", success},
-            {"failed", failed},
-            {"message", "导入完成：成功" + std::to_string(success) + "条，失败" + std::to_string(failed) + "条"}
+            {"success", successItems.size()},
+            {"failed", failedItems.size()},
+            {"successItems", successItems},
+            {"failedItems", failedItems},
+            {"message", "导入完成：成功" + std::to_string(successItems.size()) + "条，失败" + std::to_string(failedItems.size()) + "条"}
         };
-        return jsonResponse(response);
+        
+        // 如果有失败项，返回400状态码
+        if (failedItems.size() > 0 && successItems.size() == 0) {
+            return jsonResponse(response, 400);
+        } else if (failedItems.size() > 0) {
+            return jsonResponse(response, 207); // 部分成功
+        }
+        return jsonResponse(response, 201);
     }
 
     // 批量删除用户
@@ -492,9 +563,11 @@ public:
             return errorResponse("Unauthorized", "Invalid token", 401);
         }
 
-        // 获取查询参数（简化处理）
-        int page = 1;
-        int limit = 10;
+        // 解析分页参数（支持字符串和整数）
+        auto [page, limit] = parsePaginationParams(req, 1, 10, 1000);
+        
+        // 解析字段选择参数
+        std::vector<std::string> fields = parseFieldsParam(req);
 
         auto logs = dataManager->getOperationLogs();
         
@@ -506,8 +579,32 @@ public:
             }
         }
 
-        // 分页
-        auto result = paginate(userLogs, page, limit);
+        // 分页（使用ISO日期格式）
+        auto result = paginateWithISO(userLogs, page, limit, 
+            [this](const std::string& ts) { return dataManager->convertToISO8601(ts); });
+        
+        // 如果指定了fields，进行字段过滤
+        if (!fields.empty() && result.contains("data")) {
+            json filteredData = json::array();
+            for (auto& item : result["data"]) {
+                json filteredItem;
+                for (const auto& field : fields) {
+                    if (item.contains(field)) {
+                        filteredItem[field] = item[field];
+                    }
+                }
+                filteredData.push_back(filteredItem);
+            }
+            result["data"] = filteredData;
+        }
+        
+        // 记录日志（包含分页参数）
+        std::string logMsg = "GET /user/logs | page=" + std::to_string(page) + 
+                           ", limit=" + std::to_string(limit) + 
+                           ", total=" + std::to_string(userLogs.size());
+        logger->logOperation(currentUser.value().id, currentUser.value().username,
+                           logMsg, "用户管理");
+
         return jsonResponse(result);
     }
 

@@ -5,8 +5,12 @@
 #include <vector>
 #include <optional>
 #include <nlohmann/json.hpp>
+#include <iomanip>
 
 using json = nlohmann::json;
+
+// 前向声明
+class DataManager;
 
 // 用户模型
 struct User {
@@ -30,6 +34,25 @@ struct User {
             {"name", u.name},
             {"createdAt", u.createdAt},
             {"updatedAt", u.updatedAt}
+        };
+        if (u.className.has_value()) {
+            j["class"] = u.className.value();
+        }
+        if (u.studentId.has_value()) {
+            j["studentId"] = u.studentId.value();
+        }
+    }
+    
+    // 带ISO 8601日期转换的序列化（使用std::function避免循环依赖）
+    friend void to_json_iso(json& j, const User& u, std::function<std::string(const std::string&)> convertFunc) {
+        j = json{
+            {"id", u.id},
+            {"username", u.username},
+            {"passwordHash", u.passwordHash},
+            {"role", u.role},
+            {"name", u.name},
+            {"createdAt", convertFunc(u.createdAt)},
+            {"updatedAt", convertFunc(u.updatedAt)}
         };
         if (u.className.has_value()) {
             j["class"] = u.className.value();
@@ -83,6 +106,21 @@ struct Student {
         if (s.phone.has_value()) j["phone"] = s.phone.value();
         if (s.email.has_value()) j["email"] = s.email.value();
     }
+    
+    // 带ISO 8601日期转换的序列化（使用std::function避免循环依赖）
+    friend void to_json_iso(json& j, const Student& s, std::function<std::string(const std::string&)> convertFunc) {
+        j = json{
+            {"id", s.id},
+            {"studentId", s.studentId},
+            {"name", s.name},
+            {"class", s.className},
+            {"createdAt", convertFunc(s.createdAt)},
+            {"updatedAt", convertFunc(s.updatedAt)}
+        };
+        if (s.gender.has_value()) j["gender"] = s.gender.value();
+        if (s.phone.has_value()) j["phone"] = s.phone.value();
+        if (s.email.has_value()) j["email"] = s.email.value();
+    }
 
     friend void from_json(const json& j, Student& s) {
         j.at("id").get_to(s.id);
@@ -116,6 +154,20 @@ struct Course {
             {"credit", c.credit},
             {"createdAt", c.createdAt},
             {"updatedAt", c.updatedAt}
+        };
+        if (c.teacher.has_value()) j["teacher"] = c.teacher.value();
+        if (c.description.has_value()) j["description"] = c.description.value();
+    }
+    
+    // 带ISO 8601日期转换的序列化（使用std::function避免循环依赖）
+    friend void to_json_iso(json& j, const Course& c, std::function<std::string(const std::string&)> convertFunc) {
+        j = json{
+            {"id", c.id},
+            {"courseId", c.courseId},
+            {"name", c.name},
+            {"credit", c.credit},
+            {"createdAt", convertFunc(c.createdAt)},
+            {"updatedAt", convertFunc(c.updatedAt)}
         };
         if (c.teacher.has_value()) j["teacher"] = c.teacher.value();
         if (c.description.has_value()) j["description"] = c.description.value();
@@ -158,6 +210,21 @@ struct Grade {
         };
         if (g.semester.has_value()) j["semester"] = g.semester.value();
     }
+    
+    // 带ISO 8601日期转换的序列化（使用std::function避免循环依赖）
+    friend void to_json_iso(json& j, const Grade& g, std::function<std::string(const std::string&)> convertFunc) {
+        j = json{
+            {"id", g.id},
+            {"studentId", g.studentId},
+            {"studentName", g.studentName},
+            {"courseId", g.courseId},
+            {"courseName", g.courseName},
+            {"score", g.score},
+            {"createdAt", convertFunc(g.createdAt)},
+            {"updatedAt", convertFunc(g.updatedAt)}
+        };
+        if (g.semester.has_value()) j["semester"] = g.semester.value();
+    }
 
     friend void from_json(const json& j, Grade& g) {
         j.at("id").get_to(g.id);
@@ -193,6 +260,19 @@ struct OperationLog {
         };
         if (log.ip.has_value()) j["ip"] = log.ip.value();
     }
+    
+    // 带ISO 8601日期转换的序列化
+    friend void to_json_iso(json& j, const OperationLog& log, std::function<std::string(const std::string&)> convertFunc) {
+        j = json{
+            {"id", log.id},
+            {"userId", log.userId},
+            {"username", log.username},
+            {"action", log.action},
+            {"module", log.module},
+            {"createdAt", convertFunc(log.createdAt)}
+        };
+        if (log.ip.has_value()) j["ip"] = log.ip.value();
+    }
 
     friend void from_json(const json& j, OperationLog& log) {
         j.at("id").get_to(log.id);
@@ -221,6 +301,18 @@ struct SystemLog {
             {"message", log.message},
             {"module", log.module},
             {"createdAt", log.createdAt}
+        };
+        if (log.ip.has_value()) j["ip"] = log.ip.value();
+    }
+    
+    // 带ISO 8601日期转换的序列化
+    friend void to_json_iso(json& j, const SystemLog& log, std::function<std::string(const std::string&)> convertFunc) {
+        j = json{
+            {"id", log.id},
+            {"level", log.level},
+            {"message", log.message},
+            {"module", log.module},
+            {"createdAt", convertFunc(log.createdAt)}
         };
         if (log.ip.has_value()) j["ip"] = log.ip.value();
     }

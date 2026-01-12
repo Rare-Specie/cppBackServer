@@ -171,8 +171,8 @@ public:
         }
 
         // 获取查询参数
-        std::string type = "";
-        std::string format = "";
+        std::string type = req.get_header_value("X-Query-Type");
+        std::string format = req.get_header_value("X-Query-Format");
 
         if (type.empty() || format.empty()) {
             return errorResponse("BadRequest", "type and format are required", 400);

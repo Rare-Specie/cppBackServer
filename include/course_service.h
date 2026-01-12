@@ -32,14 +32,15 @@ public:
             return errorResponse("Unauthorized", "Invalid token", 401);
         }
 
-        // 获取查询参数
-        int page = 1;
-        int limit = 10;
-        std::string search = "";
+        // 解析分页参数（支持字符串和整数）
+        auto [page, limit] = parsePaginationParams(req, 1, 10, 1000);
+        
+        // 获取过滤参数
+        std::string search = req.get_header_value("X-Query-Search");
 
         auto courses = dataManager->getCourses();
         
-        // 筛选
+        // 筛选（先过滤再分页）
         std::vector<Course> filtered;
         for (const auto& course : courses) {
             if (!search.empty()) {
@@ -49,14 +50,18 @@ public:
             filtered.push_back(course);
         }
 
-        // 分页
-        auto result = paginate(filtered, page, limit);
+        // 分页（使用ISO日期格式）
+        auto result = paginateWithISO(filtered, page, limit, 
+            [this](const std::string& ts) { return dataManager->convertToISO8601(ts); });
         
-        // 记录日志
+        // 记录日志（包含分页参数）
         auto currentUser = authManager->getCurrentUser(token.substr(7));
         if (currentUser.has_value()) {
+            std::string logMsg = "GET /courses | page=" + std::to_string(page) + 
+                               ", limit=" + std::to_string(limit) + 
+                               ", filtered=" + std::to_string(filtered.size());
             logger->logOperation(currentUser.value().id, currentUser.value().username,
-                               "GET /courses", "课程管理");
+                               logMsg, "课程管理");
         }
 
         return jsonResponse(result);
@@ -263,6 +268,12 @@ public:
             return errorResponse("Unauthorized", "Invalid token", 401);
         }
 
+        // 解析分页参数（支持字符串和整数）
+        auto [page, limit] = parsePaginationParams(req, 1, 10, 1000);
+        
+        // 解析字段选择参数
+        std::vector<std::string> fields = parseFieldsParam(req);
+
         // 检查课程是否存在
         auto courses = dataManager->getCourses();
         auto courseIt = std::find_if(courses.begin(), courses.end(),
@@ -303,14 +314,54 @@ public:
             }
         }
 
-        // 记录日志
+        // 分页
+        int total = courseStudents.size();
+        int start = (page - 1) * limit;
+        int end = std::min(start + limit, total);
+        
+        json result = json::array();
+        if (start < total) {
+            for (int i = start; i < end; i++) {
+                json item = courseStudents[i];
+                
+                // 如果指定了fields，进行字段过滤
+                if (!fields.empty()) {
+                    json filteredItem;
+                    for (const auto& field : fields) {
+                        if (item.contains(field)) {
+                            filteredItem[field] = item[field];
+                        }
+                    }
+                    result.push_back(filteredItem);
+                } else {
+                    result.push_back(item);
+                }
+            }
+        }
+        
+        // 包装成分页格式
+        json response = {
+            {"data", result},
+            {"total", total},
+            {"page", page},
+            {"limit", limit},
+            {"totalPages", (total + limit - 1) / limit}
+        };
+
+        // 记录日志（包含分页参数）
         auto currentUser = authManager->getCurrentUser(token.substr(7));
         if (currentUser.has_value()) {
+            std::string logMsg = "GET /courses/" + courseId + "/students | page=" + std::to_string(page) + 
+                               ", limit=" + std::to_string(limit) + 
+                               ", total=" + std::to_string(total);
+            if (!fields.empty()) {
+                logMsg += ", fields=" + std::to_string(fields.size());
+            }
             logger->logOperation(currentUser.value().id, currentUser.value().username,
-                               "GET /courses/" + courseId + "/students", "课程管理");
+                               logMsg, "课程管理");
         }
 
-        return jsonResponse(courseStudents);
+        return jsonResponse(response);
     }
 
     // 学生选课
