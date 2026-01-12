@@ -1,11 +1,11 @@
 [
   {
-    "class": "测试1",
-    "createdAt": "Mon Jan 12 11:25:27 2026",
+    "class": "01",
+    "createdAt": "Mon Jan 12 13:13:03 2026",
     "gender": "male",
-    "id": "1768188327_589673557",
-    "name": "测试",
-    "studentId": "001",
-    "updatedAt": "Mon Jan 12 11:25:27 2026"
+    "id": "1768194783_143542612",
+    "name": "student",
+    "studentId": "01",
+    "updatedAt": "Mon Jan 12 13:13:03 2026"
   }
 ]
