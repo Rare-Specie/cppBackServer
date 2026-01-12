@@ -1336,5 +1336,45 @@
     "module": "学生管理",
     "userId": "1768233521_16807",
     "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "2026-01-13 00:46:43",
+    "id": "1768236403_16807",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "2026-01-13 00:46:43",
+    "id": "1768236403_282475249",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses/1768233584_1108728549/students | page=1, limit=1000, total=9",
+    "createdAt": "2026-01-13 00:46:45",
+    "id": "1768236405_1622650073",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /grades/course/1768233584_1108728549 | page=1, limit=10, total=9",
+    "createdAt": "2026-01-13 00:46:45",
+    "id": "1768236405_984943658",
+    "module": "成绩管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "POST /grades",
+    "createdAt": "2026-01-13 00:46:49",
+    "id": "1768236409_470211272",
+    "module": "成绩管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
   }
 ]
