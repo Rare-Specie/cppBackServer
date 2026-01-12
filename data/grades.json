@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "courseId": "1768187809_1137623865",
+    "courseName": "测试1",
+    "createdAt": "Mon Jan 12 15:37:15 2026",
+    "id": "1768203435_1441282327",
+    "score": 77,
+    "studentId": "114514",
+    "studentName": "cs2",
+    "updatedAt": "Mon Jan 12 15:37:25 2026"
+  },
+  {
+    "courseId": "1768187809_1137623865",
+    "courseName": "测试1",
+    "createdAt": "Mon Jan 12 15:49:53 2026",
+    "id": "1768204193_530511967",
+    "score": 76,
+    "studentId": "student2",
+    "studentName": "哈吉米",
+    "updatedAt": "Mon Jan 12 15:49:58 2026"
+  }
+]

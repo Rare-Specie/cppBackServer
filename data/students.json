@@ -1,11 +1,20 @@
 [
   {
-    "class": "cs2",
-    "createdAt": "Mon Jan 12 15:17:38 2026",
+    "class": "cs3",
+    "createdAt": "Mon Jan 12 15:35:01 2026",
     "gender": "male",
-    "id": "1768202258_1622650073",
-    "name": "cs1",
+    "id": "1768203301_1458777923",
+    "name": "cs2",
     "studentId": "114514",
-    "updatedAt": "Mon Jan 12 15:17:38 2026"
+    "updatedAt": "Mon Jan 12 15:35:01 2026"
+  },
+  {
+    "class": "02",
+    "createdAt": "Mon Jan 12 15:49:05 2026",
+    "gender": "male",
+    "id": "1768204145_896544303",
+    "name": "哈吉米",
+    "studentId": "student2",
+    "updatedAt": "Mon Jan 12 15:49:05 2026"
   }
 ]
