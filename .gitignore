@@ -12,7 +12,6 @@ Thumbs.db
 main
 main.exe
 main.dSYM/
-build_windows/
 *.o
 *.obj
 *.out
