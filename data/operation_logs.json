@@ -439,5 +439,902 @@
     "module": "学生管理",
     "userId": "1768233521_16807",
     "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:16:38 2026",
+    "id": "1768234598_343098142",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:16:38 2026",
+    "id": "1768234598_456880399",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:17:32 2026",
+    "id": "1768234652_1534827968",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:17:32 2026",
+    "id": "1768234652_280090412",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:17:40 2026",
+    "id": "1768234660_195400260",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:17:40 2026",
+    "id": "1768234660_589673557",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:17:40 2026",
+    "id": "1768234660_6441594",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses/1768233584_1108728549/students | page=1, limit=1000, total=7",
+    "createdAt": "Tue Jan 13 00:17:43 2026",
+    "id": "1768234663_889688008",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /grades/course/1768233584_1108728549 | page=1, limit=10, total=7",
+    "createdAt": "Tue Jan 13 00:17:43 2026",
+    "id": "1768234663_57716395",
+    "module": "成绩管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses/1768233584_1108728549/students | page=1, limit=1000, total=7",
+    "createdAt": "Tue Jan 13 00:18:00 2026",
+    "id": "1768234680_1524325968",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /grades/course/1768233584_1108728549 | page=1, limit=10, total=7",
+    "createdAt": "Tue Jan 13 00:18:00 2026",
+    "id": "1768234680_2014119113",
+    "module": "成绩管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "登录",
+    "createdAt": "Tue Jan 13 00:23:06 2026",
+    "id": "1768234986_16807",
+    "ip": "",
+    "module": "认证",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /user/logs | page=1, limit=10, total=67",
+    "createdAt": "Tue Jan 13 00:23:06 2026",
+    "id": "1768234986_282475249",
+    "module": "用户管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=200, filtered=1",
+    "createdAt": "Tue Jan 13 00:23:08 2026",
+    "id": "1768234988_1622650073",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:23:08 2026",
+    "id": "1768234988_984943658",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=10, filtered=50",
+    "createdAt": "Tue Jan 13 00:23:09 2026",
+    "id": "1768234989_1144108930",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=200, filtered=1",
+    "createdAt": "Tue Jan 13 00:23:39 2026",
+    "id": "1768235019_470211272",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:23:39 2026",
+    "id": "1768235019_101027544",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses/1768233584_1108728549/students | page=1, limit=1000, total=7",
+    "createdAt": "Tue Jan 13 00:23:41 2026",
+    "id": "1768235021_1457850878",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "POST /courses/1768233584_1108728549/enroll",
+    "createdAt": "Tue Jan 13 00:23:46 2026",
+    "id": "1768235026_2007237709",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "POST /courses/1768233584_1108728549/enroll",
+    "createdAt": "Tue Jan 13 00:23:46 2026",
+    "id": "1768235026_1115438165",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses/1768233584_1108728549/students | page=1, limit=1000, total=9",
+    "createdAt": "Tue Jan 13 00:23:46 2026",
+    "id": "1768235026_1784484492",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=10, filtered=1",
+    "createdAt": "Tue Jan 13 00:23:47 2026",
+    "id": "1768235027_74243042",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses/1768233584_1108728549",
+    "createdAt": "Tue Jan 13 00:23:50 2026",
+    "id": "1768235030_114807987",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses/1768233584_1108728549/students | page=1, limit=1000, total=9",
+    "createdAt": "Tue Jan 13 00:23:50 2026",
+    "id": "1768235030_1137522503",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=10, filtered=1",
+    "createdAt": "Tue Jan 13 00:23:56 2026",
+    "id": "1768235036_1441282327",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:23:57 2026",
+    "id": "1768235037_16531729",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:23:57 2026",
+    "id": "1768235037_823378840",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses/1768233584_1108728549/students | page=1, limit=1000, total=9",
+    "createdAt": "Tue Jan 13 00:24:01 2026",
+    "id": "1768235041_143542612",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /grades/course/1768233584_1108728549 | page=1, limit=10, total=9",
+    "createdAt": "Tue Jan 13 00:24:01 2026",
+    "id": "1768235041_896544303",
+    "module": "成绩管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses/1768233584_1108728549/students | page=1, limit=1000, total=9",
+    "createdAt": "Tue Jan 13 00:24:10 2026",
+    "id": "1768235050_1474833169",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /grades/course/1768233584_1108728549 | page=1, limit=10, total=9",
+    "createdAt": "Tue Jan 13 00:24:10 2026",
+    "id": "1768235050_1264817709",
+    "module": "成绩管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses/1768233584_1108728549/students | page=1, limit=1000, total=9",
+    "createdAt": "Tue Jan 13 00:24:15 2026",
+    "id": "1768235055_1998097157",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /grades/course/1768233584_1108728549 | page=1, limit=10, total=9",
+    "createdAt": "Tue Jan 13 00:24:15 2026",
+    "id": "1768235055_1817129560",
+    "module": "成绩管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /grades/export",
+    "createdAt": "Tue Jan 13 00:24:31 2026",
+    "id": "1768235071_1131570933",
+    "module": "成绩管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses/1768233584_1108728549/students | page=1, limit=1000, total=9",
+    "createdAt": "Tue Jan 13 00:24:53 2026",
+    "id": "1768235093_197493099",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /grades/course/1768233584_1108728549 | page=1, limit=10, total=9",
+    "createdAt": "Tue Jan 13 00:24:53 2026",
+    "id": "1768235093_1404280278",
+    "module": "成绩管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses/1768233584_1108728549/students | page=1, limit=1000, total=9",
+    "createdAt": "Tue Jan 13 00:24:57 2026",
+    "id": "1768235097_893351816",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /grades/course/1768233584_1108728549 | page=1, limit=10, total=9",
+    "createdAt": "Tue Jan 13 00:24:57 2026",
+    "id": "1768235097_1505795335",
+    "module": "成绩管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses/1768233584_1108728549/students | page=1, limit=1000, total=9",
+    "createdAt": "Tue Jan 13 00:26:29 2026",
+    "id": "1768235189_1954899097",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /grades/course/1768233584_1108728549 | page=1, limit=10, total=9",
+    "createdAt": "Tue Jan 13 00:26:29 2026",
+    "id": "1768235189_1636807826",
+    "module": "成绩管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:27:09 2026",
+    "id": "1768235229_563613512",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:27:09 2026",
+    "id": "1768235229_101929267",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:27:14 2026",
+    "id": "1768235234_1580723810",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:27:14 2026",
+    "id": "1768235234_704877633",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:27:24 2026",
+    "id": "1768235244_1358580979",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:27:24 2026",
+    "id": "1768235244_1624379149",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:27:28 2026",
+    "id": "1768235248_2128236579",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:27:28 2026",
+    "id": "1768235248_784558821",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:27:29 2026",
+    "id": "1768235249_530511967",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:27:29 2026",
+    "id": "1768235249_2110010672",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:27:36 2026",
+    "id": "1768235256_1551901393",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:27:36 2026",
+    "id": "1768235256_1617819336",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:27:51 2026",
+    "id": "1768235271_1399125485",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:27:51 2026",
+    "id": "1768235271_156091745",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:28:40 2026",
+    "id": "1768235320_1356425228",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:28:40 2026",
+    "id": "1768235320_1899894091",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:34:13 2026",
+    "id": "1768235653_585640194",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:34:13 2026",
+    "id": "1768235653_937186357",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:34:58 2026",
+    "id": "1768235698_1646035001",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:34:58 2026",
+    "id": "1768235698_1025921153",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:35:00 2026",
+    "id": "1768235700_510616708",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:35:01 2026",
+    "id": "1768235701_590357944",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:35:01 2026",
+    "id": "1768235701_771515668",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses/1768233584_1108728549/students | page=1, limit=1000, total=9",
+    "createdAt": "Tue Jan 13 00:35:03 2026",
+    "id": "1768235703_357571490",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /grades/course/1768233584_1108728549 | page=1, limit=10, total=9",
+    "createdAt": "Tue Jan 13 00:35:03 2026",
+    "id": "1768235703_1044788124",
+    "module": "成绩管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses/1768233584_1108728549/students | page=1, limit=1000, total=9",
+    "createdAt": "Tue Jan 13 00:35:06 2026",
+    "id": "1768235706_1927702196",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /grades/course/1768233584_1108728549 | page=1, limit=10, total=9",
+    "createdAt": "Tue Jan 13 00:35:06 2026",
+    "id": "1768235706_1952509530",
+    "module": "成绩管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:35:10 2026",
+    "id": "1768235710_130060903",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:35:19 2026",
+    "id": "1768235719_1942727722",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /user/logs | page=1, limit=10, total=125",
+    "createdAt": "Tue Jan 13 00:35:20 2026",
+    "id": "1768235720_1083454666",
+    "module": "用户管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=10, filtered=50",
+    "createdAt": "Tue Jan 13 00:35:21 2026",
+    "id": "1768235721_1108728549",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=200, filtered=1",
+    "createdAt": "Tue Jan 13 00:35:23 2026",
+    "id": "1768235723_685118024",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:35:23 2026",
+    "id": "1768235723_2118797801",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses/1768233584_1108728549/students | page=1, limit=1000, total=9",
+    "createdAt": "Tue Jan 13 00:35:25 2026",
+    "id": "1768235725_1060806853",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=10, filtered=1",
+    "createdAt": "Tue Jan 13 00:35:27 2026",
+    "id": "1768235727_571540977",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses/1768233584_1108728549",
+    "createdAt": "Tue Jan 13 00:35:30 2026",
+    "id": "1768235730_194847408",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses/1768233584_1108728549/students | page=1, limit=1000, total=9",
+    "createdAt": "Tue Jan 13 00:35:30 2026",
+    "id": "1768235730_2035308228",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:35:33 2026",
+    "id": "1768235733_158374933",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:35:33 2026",
+    "id": "1768235733_1075260298",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses/1768233584_1108728549/students | page=1, limit=1000, total=9",
+    "createdAt": "Tue Jan 13 00:35:34 2026",
+    "id": "1768235734_824938981",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /grades/course/1768233584_1108728549 | page=1, limit=10, total=9",
+    "createdAt": "Tue Jan 13 00:35:34 2026",
+    "id": "1768235734_595028635",
+    "module": "成绩管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:37:53 2026",
+    "id": "1768235873_1962408013",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:37:53 2026",
+    "id": "1768235873_1137623865",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:37:59 2026",
+    "id": "1768235879_997389814",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:37:59 2026",
+    "id": "1768235879_2020739063",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses/1768233584_1108728549/students | page=1, limit=1000, total=9",
+    "createdAt": "Tue Jan 13 00:38:04 2026",
+    "id": "1768235884_107554536",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /grades/course/1768233584_1108728549 | page=1, limit=10, total=9",
+    "createdAt": "Tue Jan 13 00:38:04 2026",
+    "id": "1768235884_1635339425",
+    "module": "成绩管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:38:24 2026",
+    "id": "1768235904_1654001669",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:38:24 2026",
+    "id": "1768235904_1777724115",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:38:29 2026",
+    "id": "1768235909_269220094",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:38:29 2026",
+    "id": "1768235909_34075629",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:38:35 2026",
+    "id": "1768235915_1478446501",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:38:35 2026",
+    "id": "1768235915_1864546517",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:38:54 2026",
+    "id": "1768235934_1351934195",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:38:55 2026",
+    "id": "1768235935_1581030105",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:39:09 2026",
+    "id": "1768235949_1557810404",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:39:09 2026",
+    "id": "1768235949_2146319451",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:39:09 2026",
+    "id": "1768235949_1908194298",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:39:09 2026",
+    "id": "1768235949_500782188",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:40:35 2026",
+    "id": "1768236035_657821123",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:40:35 2026",
+    "id": "1768236035_753799505",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:40:41 2026",
+    "id": "1768236041_1102246882",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:40:50 2026",
+    "id": "1768236050_1816731566",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:40:57 2026",
+    "id": "1768236057_1807130337",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:40:57 2026",
+    "id": "1768236057_578354438",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:41:06 2026",
+    "id": "1768236066_892053144",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:41:06 2026",
+    "id": "1768236066_1153851501",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:41:23 2026",
+    "id": "1768236083_1004844897",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:41:23 2026",
+    "id": "1768236083_616783871",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /courses | page=1, limit=100, filtered=1",
+    "createdAt": "Tue Jan 13 00:41:24 2026",
+    "id": "1768236084_382955828",
+    "module": "课程管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
+  },
+  {
+    "action": "GET /students | page=1, limit=1000, filtered=50",
+    "createdAt": "Tue Jan 13 00:41:24 2026",
+    "id": "1768236084_330111137",
+    "module": "学生管理",
+    "userId": "1768233521_16807",
+    "username": "admin"
   }
 ]

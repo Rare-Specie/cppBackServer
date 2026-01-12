@@ -3,6 +3,8 @@
 
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <cctype>
 #include <crow.h>
 #include "auth.h"
 #include "data_manager.h"
@@ -78,12 +80,19 @@ private:
 public:
     LogMiddleware(DataManager* dm) : dataManager(dm) {}
 
-    // 记录系统日志
+    // 记录系统日志（统一规范日志级别为大写短标识：INFO/WARN/ERROR）
     void logSystem(const std::string& level, const std::string& message, const std::string& module, const std::string& ip = "") {
+        auto normalizeLevel = [](std::string l) {
+            std::transform(l.begin(), l.end(), l.begin(), [](unsigned char c){ return std::tolower(c); });
+            if (l == "warning" || l == "warn") return std::string("WARN");
+            if (l == "error" || l == "err") return std::string("ERROR");
+            return std::string("INFO");
+        };
+
         auto logs = dataManager->getSystemLogs();
         SystemLog log{
             dataManager->generateId(),
-            level,
+            normalizeLevel(level),
             message,
             module,
             ip.empty() ? std::nullopt : std::optional<std::string>(ip),
@@ -116,7 +125,7 @@ public:
         std::string ip = req.get_header_value("X-Forwarded-For");
         if (ip.empty()) ip = req.get_header_value("Remote-Addr");
         
-        std::string level = (res.code >= 400) ? "warning" : "info";
+        std::string level = (res.code >= 400) ? "WARN" : "INFO";
         std::string message = "Request processed | Response: " + std::to_string(res.code);
         
         if (user.has_value()) {

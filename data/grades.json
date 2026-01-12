@@ -68,5 +68,25 @@
     "studentId": "2024005",
     "studentName": "孙七",
     "updatedAt": "Tue Jan 13 00:00:02 2026"
+  },
+  {
+    "courseId": "1768233584_1108728549",
+    "courseName": "日本语",
+    "createdAt": "Tue Jan 13 00:23:46 2026",
+    "id": "1768235026_1458777923",
+    "score": 0,
+    "studentId": "2024047",
+    "studentName": "陆凯",
+    "updatedAt": "Tue Jan 13 00:23:46 2026"
+  },
+  {
+    "courseId": "1768233584_1108728549",
+    "courseName": "日本语",
+    "createdAt": "Tue Jan 13 00:23:46 2026",
+    "id": "1768235026_823564440",
+    "score": 0,
+    "studentId": "2024044",
+    "studentName": "蒋欣",
+    "updatedAt": "Tue Jan 13 00:23:46 2026"
   }
 ]

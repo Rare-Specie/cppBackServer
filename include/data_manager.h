@@ -74,15 +74,19 @@ public:
         return ss.str();
     }
 
-    // 获取当前时间戳（ISO 8601格式）
+    // 获取当前时间戳（本地时间，格式：YYYY-MM-DD HH:MM:SS）
     std::string getCurrentTimestamp() {
         auto now = std::chrono::system_clock::now();
-        auto time_t = std::chrono::system_clock::to_time_t(now);
-        std::stringstream ss;
-        ss << std::ctime(&time_t);
-        std::string str = ss.str();
-        str.pop_back(); // 移除换行符
-        return str;
+        std::time_t tt = std::chrono::system_clock::to_time_t(now);
+        std::tm tm{};
+    #ifdef _WIN32
+        localtime_s(&tm, &tt);
+    #else
+        localtime_r(&tt, &tm);
+    #endif
+        char buf[32];
+        std::strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", &tm);
+        return std::string(buf);
     }
     
     // 获取ISO 8601格式的时间戳
