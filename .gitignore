@@ -18,6 +18,7 @@ main.dSYM/
 # 临时文件
 *.tmp
 *.log
+data/
 
 # 备份文件
 *.backup

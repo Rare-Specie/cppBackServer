@@ -1,12 +1,12 @@
 [
   {
-    "courseId": "JP01",
-    "createdAt": "Mon Jan 12 23:59:44 2026",
+    "courseId": "JP001",
+    "createdAt": "2026-01-13 22:46:50",
     "credit": 2,
     "description": "",
-    "id": "1768233584_1108728549",
-    "name": "日本语",
-    "teacher": "日本人",
-    "updatedAt": "Mon Jan 12 23:59:44 2026"
+    "id": "1768315610_667306633",
+    "name": "JP L ",
+    "teacher": "jpy",
+    "updatedAt": "2026-01-13 22:46:50"
   }
 ]

@@ -1,103 +1,122 @@
 [
   {
-    "courseId": "1768233584_1108728549",
-    "courseName": "日本语",
-    "createdAt": "Tue Jan 13 00:00:02 2026",
-    "id": "1768233602_824938981",
-    "score": 0,
-    "studentId": "2024001",
-    "studentName": "张三",
-    "updatedAt": "Tue Jan 13 00:00:02 2026"
-  },
-  {
-    "courseId": "1768233584_1108728549",
-    "courseName": "日本语",
-    "createdAt": "Tue Jan 13 00:00:02 2026",
-    "id": "1768233602_1137623865",
+    "courseId": "1768315610_667306633",
+    "courseName": "JP L ",
+    "createdAt": "2026-01-13 22:47:03",
+    "id": "1768315623_843998877",
     "score": 0,
     "studentId": "2024002",
     "studentName": "李四",
-    "updatedAt": "Tue Jan 13 00:00:02 2026"
+    "updatedAt": "2026-01-13 22:47:03"
   },
   {
-    "courseId": "1768233584_1108728549",
-    "courseName": "日本语",
-    "createdAt": "Tue Jan 13 00:00:02 2026",
-    "id": "1768233602_107554536",
+    "courseId": "1768315610_667306633",
+    "courseName": "JP L ",
+    "createdAt": "2026-01-13 22:47:03",
+    "id": "1768315623_1021979358",
     "score": 0,
-    "studentId": "2024003",
-    "studentName": "王五",
-    "updatedAt": "Tue Jan 13 00:00:02 2026"
+    "studentId": "2024007",
+    "studentName": "吴九",
+    "updatedAt": "2026-01-13 22:47:03"
   },
   {
-    "courseId": "1768233584_1108728549",
-    "courseName": "日本语",
-    "createdAt": "Tue Jan 13 00:00:02 2026",
-    "id": "1768233602_1777724115",
+    "courseId": "1768315610_667306633",
+    "courseName": "JP L ",
+    "createdAt": "2026-01-13 22:47:03",
+    "id": "1768315623_599777254",
     "score": 0,
-    "studentId": "2024004",
-    "studentName": "赵六",
-    "updatedAt": "Tue Jan 13 00:00:02 2026"
+    "studentId": "2024049",
+    "studentName": "丁强",
+    "updatedAt": "2026-01-13 22:47:03"
   },
   {
-    "courseId": "1768233584_1108728549",
-    "courseName": "日本语",
-    "createdAt": "Tue Jan 13 00:00:02 2026",
-    "id": "1768233602_1478446501",
+    "courseId": "1768315610_667306633",
+    "courseName": "JP L ",
+    "createdAt": "2026-01-13 22:47:03",
+    "id": "1768315623_794014915",
     "score": 0,
-    "studentId": "2024006",
-    "studentName": "周八",
-    "updatedAt": "Tue Jan 13 00:00:02 2026"
+    "studentId": "2024046",
+    "studentName": "程琳",
+    "updatedAt": "2026-01-13 22:47:03"
   },
   {
-    "courseId": "1768233584_1108728549",
-    "courseName": "日本语",
-    "createdAt": "Tue Jan 13 00:00:02 2026",
-    "id": "1768233602_1581030105",
+    "courseId": "1768315610_667306633",
+    "courseName": "JP L ",
+    "createdAt": "2026-01-13 22:47:03",
+    "id": "1768315623_1442645480",
     "score": 0,
-    "studentId": "2024008",
-    "studentName": "郑十",
-    "updatedAt": "Tue Jan 13 00:00:02 2026"
+    "studentId": "2024042",
+    "studentName": "董晴",
+    "updatedAt": "2026-01-13 22:47:03"
   },
   {
-    "courseId": "1768233584_1108728549",
-    "courseName": "日本语",
-    "createdAt": "Tue Jan 13 00:00:02 2026",
-    "id": "1768233602_1908194298",
+    "courseId": "1768315610_667306633",
+    "courseName": "JP L ",
+    "createdAt": "2026-01-13 22:47:03",
+    "id": "1768315623_1103669955",
     "score": 0,
-    "studentId": "2024005",
-    "studentName": "孙七",
-    "updatedAt": "Tue Jan 13 00:00:02 2026"
+    "studentId": "2024039",
+    "studentName": "蔡明",
+    "updatedAt": "2026-01-13 22:47:03"
   },
   {
-    "courseId": "1768233584_1108728549",
-    "courseName": "日本语",
-    "createdAt": "Tue Jan 13 00:23:46 2026",
-    "id": "1768235026_1458777923",
+    "courseId": "1768315610_667306633",
+    "courseName": "JP L ",
+    "createdAt": "2026-01-13 22:47:03",
+    "id": "1768315623_1547837107",
     "score": 0,
-    "studentId": "2024047",
-    "studentName": "陆凯",
-    "updatedAt": "Tue Jan 13 00:23:46 2026"
+    "studentId": "2024037",
+    "studentName": "肖亮",
+    "updatedAt": "2026-01-13 22:47:03"
   },
   {
-    "courseId": "1768233584_1108728549",
-    "courseName": "日本语",
-    "createdAt": "Tue Jan 13 00:23:46 2026",
-    "id": "1768235026_823564440",
+    "courseId": "1768315610_667306633",
+    "courseName": "JP L ",
+    "createdAt": "2026-01-13 22:47:03",
+    "id": "1768315623_989340000",
     "score": 0,
-    "studentId": "2024044",
-    "studentName": "蒋欣",
-    "updatedAt": "Tue Jan 13 00:23:46 2026"
+    "studentId": "2024038",
+    "studentName": "温雅",
+    "updatedAt": "2026-01-13 22:47:03"
   },
   {
-    "courseId": "JP01",
-    "courseName": "日本语",
-    "createdAt": "2026-01-13 00:46:49",
-    "id": "1768236409_1144108930",
-    "score": 2,
-    "semester": "2024-1",
-    "studentId": "2024001",
-    "studentName": "张三",
-    "updatedAt": "2026-01-13 00:46:49"
+    "courseId": "1768315610_667306633",
+    "courseName": "JP L ",
+    "createdAt": "2026-01-13 22:47:03",
+    "id": "1768315623_690545035",
+    "score": 0,
+    "studentId": "2024022",
+    "studentName": "高敏",
+    "updatedAt": "2026-01-13 22:47:03"
+  },
+  {
+    "courseId": "1768315610_667306633",
+    "courseName": "JP L ",
+    "createdAt": "2026-01-13 22:47:03",
+    "id": "1768315623_1110561113",
+    "score": 0,
+    "studentId": "2024024",
+    "studentName": "田甜",
+    "updatedAt": "2026-01-13 22:47:03"
+  },
+  {
+    "courseId": "1768315610_667306633",
+    "courseName": "JP L ",
+    "createdAt": "2026-01-13 22:47:03",
+    "id": "1768315623_862929593",
+    "score": 0,
+    "studentId": "2024023",
+    "studentName": "林浩",
+    "updatedAt": "2026-01-13 22:47:03"
+  },
+  {
+    "courseId": "1768315610_667306633",
+    "courseName": "JP L ",
+    "createdAt": "2026-01-13 22:47:03",
+    "id": "1768315623_2118498354",
+    "score": 0,
+    "studentId": "2024021",
+    "studentName": "马军",
+    "updatedAt": "2026-01-13 22:47:03"
   }
 ]
