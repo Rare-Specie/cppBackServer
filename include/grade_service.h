@@ -313,7 +313,7 @@ public:
         // 检查课程是否存在
         auto courses = dataManager->getCourses();
         auto courseIt = std::find_if(courses.begin(), courses.end(),
-            [&](const Course& c) { return c.id == courseId; });
+            [&](const Course& c) { return c.courseId == courseId; });
         
         if (courseIt == courses.end()) {
             return errorResponse("NotFound", "Course not found", 404);

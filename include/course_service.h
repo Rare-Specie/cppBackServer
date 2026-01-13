@@ -291,7 +291,7 @@ public:
         std::vector<std::string> processedStudentIds;
 
         for (const auto& grade : grades) {
-            if (grade.courseId == courseId) {
+            if (grade.courseId == courseIt->courseId) {
                 // 避免重复
                 if (std::find(processedStudentIds.begin(), processedStudentIds.end(), grade.studentId) 
                     == processedStudentIds.end()) {
@@ -413,7 +413,7 @@ public:
         auto grades = dataManager->getGrades();
         auto gradeIt = std::find_if(grades.begin(), grades.end(),
             [&](const Grade& g) { 
-                return g.courseId == courseId && g.studentId == studentId; 
+                return g.courseId == courseIt->courseId && g.studentId == studentId; 
             });
         
         if (gradeIt != grades.end()) {
@@ -425,7 +425,7 @@ public:
             dataManager->generateId(),
             studentId,
             studentIt->name,
-            courseId,
+            courseIt->courseId,  // 使用课程的业务ID，而不是数据库ID
             courseIt->name,
             0,  // 初始成绩为0
             std::nullopt,  // 可选的学期字段
@@ -439,7 +439,7 @@ public:
         auto currentUser = authManager->getCurrentUser(token.substr(7));
         if (currentUser.has_value()) {
             logger->logOperation(currentUser.value().id, currentUser.value().username,
-                               "POST /courses/" + courseId + "/enroll", "课程管理");
+                               "POST /courses/" + courseIt->courseId + "/enroll", "课程管理");
         }
 
         json response = {
@@ -450,7 +450,7 @@ public:
                 {"class", studentIt->className}
             }},
             {"course", {
-                {"courseId", courseId},
+                {"courseId", courseIt->courseId},
                 {"name", courseIt->name}
             }}
         };
@@ -493,7 +493,7 @@ public:
         auto grades = dataManager->getGrades();
         auto gradeIt = std::find_if(grades.begin(), grades.end(),
             [&](const Grade& g) { 
-                return g.courseId == courseId && g.studentId == studentId; 
+                return g.courseId == courseIt->courseId && g.studentId == studentId; 
             });
         
         if (gradeIt == grades.end()) {
@@ -508,7 +508,7 @@ public:
         auto currentUser = authManager->getCurrentUser(token.substr(7));
         if (currentUser.has_value()) {
             logger->logOperation(currentUser.value().id, currentUser.value().username,
-                               "DELETE /courses/" + courseId + "/enroll/" + studentId, "课程管理");
+                               "DELETE /courses/" + courseIt->courseId + "/enroll/" + studentId, "课程管理");
         }
 
         json response = {
@@ -518,7 +518,7 @@ public:
                 {"name", studentIt->name}
             }},
             {"course", {
-                {"courseId", courseId},
+                {"courseId", courseIt->courseId},
                 {"name", courseIt->name}
             }}
         };
