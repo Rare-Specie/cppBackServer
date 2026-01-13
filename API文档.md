@@ -429,8 +429,7 @@ Authorization: Bearer {token}
     "recentGrades": [
         {
             "courseName": "数学",
-            "score": 90,
-            "semester": "2024-2025-1"
+            "score": 90
         }
     ]
 }
@@ -585,7 +584,6 @@ X-Limit: 10
 X-Query-StudentId:    // 学生ID过滤（可选）
 X-Query-CourseId:     // 课程ID过滤（可选）
 X-Query-Class:        // 班级过滤（可选）
-X-Query-Semester:     // 学期过滤（可选）
 X-Fields:             // 字段选择（可选）
 ```
 
@@ -600,7 +598,6 @@ X-Fields:             // 字段选择（可选）
             "courseId": "string",
             "courseName": "string",
             "score": 85,
-            "semester": "2024-2025-1",
             "createdAt": "ISO8601",
             "updatedAt": "ISO8601"
         }
@@ -625,8 +622,7 @@ Authorization: Bearer {token}
 {
     "studentId": "string",
     "courseId": "string",
-    "score": 85,
-    "semester": "2024-2025-1"  // 可选
+    "score": 85
 }
 ```
 
@@ -641,8 +637,7 @@ Authorization: Bearer {token}
 **请求体** (部分字段可选):
 ```json
 {
-    "score": 90,
-    "semester": "2024-2025-1"
+    "score": 90
 }
 ```
 
@@ -666,7 +661,6 @@ Authorization: Bearer {token}
 ```json
 {
     "courseId": "string",
-    "semester": "2024-2025-1",
     "grades": [
         {
             "studentId": "string",
@@ -737,9 +731,10 @@ Authorization: Bearer {token}
 **请求体**:
 ```json
 {
-    "updates": [
+    "courseId": "string",
+    "grades": [
         {
-            "id": "grade_id",
+            "studentId": "string",
             "score": 90
         }
     ]
@@ -911,7 +906,6 @@ Authorization: Bearer {token}
 ?studentId=S001          // 单个学生
 或
 ?class=计算机2021-1班     // 整个班级
-&semester=2024-2025-1    // 可选学期
 ```
 
 **响应**:
@@ -926,8 +920,7 @@ Authorization: Bearer {token}
                 {
                     "courseId": "C001",
                     "courseName": "高等数学",
-                    "score": 90,
-                    "semester": "2024-2025-1"
+                    "score": 90
                 }
             ]
         }

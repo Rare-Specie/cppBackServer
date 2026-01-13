@@ -39,7 +39,6 @@ public:
         std::string studentId = req.get_header_value("X-Query-StudentId");
         std::string courseId = req.get_header_value("X-Query-CourseId");
         std::string classFilter = req.get_header_value("X-Query-Class");
-        std::string semester = req.get_header_value("X-Query-Semester");
         
         // 解析字段选择参数
         bool fullData = requestFullData(req);
@@ -65,7 +64,6 @@ public:
         for (const auto& grade : grades) {
             if (!studentId.empty() && grade.studentId != studentId) continue;
             if (!courseId.empty() && grade.courseId != courseId) continue;
-            if (!semester.empty() && grade.semester.value_or("") != semester) continue;
             
             if (!classFilter.empty()) {
                 // 查找学生班级
@@ -167,20 +165,13 @@ public:
         auto grades = dataManager->getGrades();
         auto gradeIt = std::find_if(grades.begin(), grades.end(),
             [&](const Grade& g) { 
-                return g.studentId == studentId && g.courseId == courseId && 
-                       g.semester == (body.contains("semester") && !body["semester"].is_null() ? 
-                           std::optional<std::string>(body["semester"]) : std::nullopt);
+                return g.studentId == studentId && g.courseId == courseId;
             });
         if (gradeIt != grades.end()) {
             return errorResponse("Conflict", "Grade already exists for this student and course", 409);
         }
 
         // 创建成绩
-        std::optional<std::string> semester;
-        if (body.contains("semester") && !body["semester"].is_null()) {
-            semester = body["semester"];
-        }
-
         Grade newGrade{
             dataManager->generateId(),
             studentId,
@@ -188,7 +179,6 @@ public:
             courseId,
             courseIt->name,
             score,
-            semester,
             dataManager->getCurrentTimestamp(),
             dataManager->getCurrentTimestamp()
         };
@@ -304,9 +294,6 @@ public:
         // 解析分页参数（支持字符串和整数）
         auto [page, limit] = parsePaginationParams(req, 1, 10, 1000);
         
-        // 获取过滤参数
-        std::string semester = req.get_header_value("X-Query-Semester");
-        
         // 解析字段选择参数
         std::vector<std::string> fields = parseFieldsParam(req);
 
@@ -326,8 +313,6 @@ public:
         std::vector<json> filtered;
         for (const auto& grade : grades) {
             if (grade.courseId == courseId) {
-                if (!semester.empty() && grade.semester != semester) continue;
-
                 // 查找学生信息
                 auto studentIt = std::find_if(students.begin(), students.end(),
                     [&](const Student& s) { return s.studentId == grade.studentId; });
@@ -415,12 +400,11 @@ public:
             return errorResponse("BadRequest", "Invalid JSON", 400);
         }
 
-        if (!body.contains("courseId") || !body.contains("semester") || !body.contains("grades")) {
+        if (!body.contains("courseId") || !body.contains("grades")) {
             return errorResponse("BadRequest", "Missing required fields", 400);
         }
 
         std::string courseId = body["courseId"];
-        std::string semester = body["semester"];
         auto gradesArray = body["grades"];
 
         // 验证课程是否存在
@@ -477,8 +461,7 @@ public:
                 // 查找是否已存在记录
                 auto it = std::find_if(existingGrades.begin(), existingGrades.end(),
                     [&](const Grade& g) { 
-                        return g.studentId == studentId && g.courseId == courseId && 
-                               g.semester == semester;
+                        return g.studentId == studentId && g.courseId == courseId;
                     });
 
                 if (it != existingGrades.end()) {
@@ -494,7 +477,6 @@ public:
                         courseId,
                         courseIt->name,
                         score,
-                        semester,
                         dataManager->getCurrentTimestamp(),
                         dataManager->getCurrentTimestamp()
                     };
@@ -607,16 +589,9 @@ public:
                     failedItems.push_back(errorDetails);
                     continue;
                 }
-                if (!gradeData.contains("semester") || gradeData["semester"].is_null()) {
-                    errorDetails["error"] = "Missing required field: semester";
-                    failedItems.push_back(errorDetails);
-                    continue;
-                }
-
                 std::string studentId = gradeData["studentId"];
                 std::string courseId = gradeData["courseId"];
                 int score = gradeData["score"];
-                std::string semester = gradeData["semester"];
 
                 // 验证成绩范围
                 if (!validateScore(score)) {
@@ -646,8 +621,7 @@ public:
                 // 检查重复
                 auto gradeIt = std::find_if(existingGrades.begin(), existingGrades.end(),
                     [&](const Grade& g) { 
-                        return g.studentId == studentId && g.courseId == courseId && 
-                               g.semester == semester;
+                        return g.studentId == studentId && g.courseId == courseId;
                     });
                 if (gradeIt != existingGrades.end()) {
                     errorDetails["error"] = "Grade already exists for student " + studentId + " in course " + courseId;
@@ -663,7 +637,6 @@ public:
                     courseId,
                     courseIt->name,
                     score,
-                    semester,
                     dataManager->getCurrentTimestamp(),
                     dataManager->getCurrentTimestamp()
                 };
@@ -734,7 +707,6 @@ public:
         std::string studentId = req.get_header_value("X-Query-StudentId");
         std::string courseId = req.get_header_value("X-Query-CourseId");
         std::string classFilter = req.get_header_value("X-Query-Class");
-        std::string semester = req.get_header_value("X-Query-Semester");
 
         auto grades = dataManager->getGrades();
         auto students = dataManager->getStudents();
@@ -744,7 +716,6 @@ public:
         for (const auto& grade : grades) {
             if (!studentId.empty() && grade.studentId != studentId) continue;
             if (!courseId.empty() && grade.courseId != courseId) continue;
-            if (!semester.empty() && grade.semester.value_or("") != semester) continue;
             
             if (!classFilter.empty()) {
                 auto studentIt = std::find_if(students.begin(), students.end(),

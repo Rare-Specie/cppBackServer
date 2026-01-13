@@ -35,7 +35,6 @@ public:
         // 获取查询参数
         std::string studentId = "";
         std::string classFilter = "";
-        std::string semester = "";
 
         auto students = dataManager->getStudents();
         auto grades = dataManager->getGrades();
@@ -55,7 +54,6 @@ public:
             std::vector<Grade> studentGrades;
             for (const auto& grade : grades) {
                 if (grade.studentId == studentId) {
-                    if (!semester.empty() && grade.semester != semester) continue;
                     studentGrades.push_back(grade);
                 }
             }
@@ -71,8 +69,7 @@ public:
                 studentReport["grades"].push_back({
                     {"courseId", grade.courseId},
                     {"courseName", grade.courseName},
-                    {"score", grade.score},
-                    {"semester", grade.semester.value_or("")}
+                    {"score", grade.score}
                 });
             }
 
@@ -84,7 +81,6 @@ public:
                     std::vector<Grade> studentGrades;
                     for (const auto& grade : grades) {
                         if (grade.studentId == student.studentId) {
-                            if (!semester.empty() && grade.semester != semester) continue;
                             studentGrades.push_back(grade);
                         }
                     }
@@ -100,8 +96,7 @@ public:
                         studentReport["grades"].push_back({
                             {"courseId", grade.courseId},
                             {"courseName", grade.courseName},
-                            {"score", grade.score},
-                            {"semester", grade.semester.value_or("")}
+                            {"score", grade.score}
                         });
                     }
 
@@ -130,13 +125,12 @@ public:
             html += "<strong>班级:</strong> " + student["className"].get<std::string>();
             html += "</div>";
 
-            html += "<table><tr><th>课程编号</th><th>课程名称</th><th>成绩</th><th>学期</th></tr>";
+            html += "<table><tr><th>课程编号</th><th>课程名称</th><th>成绩</th></tr>";
             for (const auto& grade : student["grades"]) {
                 html += "<tr>";
                 html += "<td>" + grade["courseId"].get<std::string>() + "</td>";
                 html += "<td>" + grade["courseName"].get<std::string>() + "</td>";
                 html += "<td>" + std::to_string(grade["score"].get<int>()) + "</td>";
-                html += "<td>" + grade["semester"].get<std::string>() + "</td>";
                 html += "</tr>";
             }
             html += "</table><br>";

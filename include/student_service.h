@@ -375,8 +375,7 @@ public:
         for (const auto& grade : recentGrades) {
             result["recentGrades"].push_back({
                 {"courseName", grade.courseName},
-                {"score", grade.score},
-                {"semester", grade.semester.value_or("")}
+                {"score", grade.score}
             });
         }
 

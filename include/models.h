@@ -193,7 +193,6 @@ struct Grade {
     std::string courseId;
     std::string courseName;
     int score;
-    std::optional<std::string> semester;
     std::string createdAt;
     std::string updatedAt;
 
@@ -208,7 +207,6 @@ struct Grade {
             {"createdAt", g.createdAt},
             {"updatedAt", g.updatedAt}
         };
-        if (g.semester.has_value()) j["semester"] = g.semester.value();
     }
     
     // 带ISO 8601日期转换的序列化（使用std::function避免循环依赖）
@@ -223,7 +221,6 @@ struct Grade {
             {"createdAt", convertFunc(g.createdAt)},
             {"updatedAt", convertFunc(g.updatedAt)}
         };
-        if (g.semester.has_value()) j["semester"] = g.semester.value();
     }
 
     friend void from_json(const json& j, Grade& g) {
@@ -233,7 +230,6 @@ struct Grade {
         j.at("courseId").get_to(g.courseId);
         j.at("courseName").get_to(g.courseName);
         j.at("score").get_to(g.score);
-        if (j.contains("semester") && !j["semester"].is_null()) g.semester = j["semester"].get<std::string>();
         j.at("createdAt").get_to(g.createdAt);
         j.at("updatedAt").get_to(g.updatedAt);
     }

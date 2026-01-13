@@ -428,7 +428,6 @@ public:
             courseIt->courseId,  // 使用课程的业务ID，而不是数据库ID
             courseIt->name,
             0,  // 初始成绩为0
-            std::nullopt,  // 可选的学期字段
             dataManager->getCurrentTimestamp(),
             dataManager->getCurrentTimestamp()
         };
