@@ -11,6 +11,7 @@ Thumbs.db
 # 编译产物
 main
 main.dSYM/
+data/
 *.o
 *.obj
 *.out
@@ -18,7 +19,6 @@ main.dSYM/
 # 临时文件
 *.tmp
 *.log
-data/
 
 # 备份文件
 *.backup

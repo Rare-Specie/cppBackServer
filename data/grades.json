@@ -118,5 +118,37 @@
     "studentId": "2024021",
     "studentName": "马军",
     "updatedAt": "2026-01-13 22:47:03"
+  },
+  {
+    "courseId": "JP001",
+    "courseName": "JP L ",
+    "createdAt": "2026-01-13 22:54:23",
+    "id": "1768316063_1172819419",
+    "score": 0,
+    "semester": "2024-2025-1",
+    "studentId": "2026001",
+    "studentName": "测试学生",
+    "updatedAt": "2026-01-13 22:54:23"
+  },
+  {
+    "courseId": "JP001",
+    "courseName": "JP L ",
+    "createdAt": "2026-01-13 22:55:49",
+    "id": "1768316149_1490404473",
+    "score": 0,
+    "semester": "2024-2025-1",
+    "studentId": "2026002",
+    "studentName": "测试学生2",
+    "updatedAt": "2026-01-13 22:55:49"
+  },
+  {
+    "courseId": "1768315610_667306633",
+    "courseName": "JP L ",
+    "createdAt": "2026-01-13 22:57:10",
+    "id": "1768316230_1520045406",
+    "score": 0,
+    "studentId": "2026001",
+    "studentName": "测试学生",
+    "updatedAt": "2026-01-13 22:57:10"
   }
 ]
