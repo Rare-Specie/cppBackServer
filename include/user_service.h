@@ -197,6 +197,14 @@ public:
                 it->role = role;
             }
         }
+        // 更新密码（管理员权限）
+        if (body.contains("password") && !body["password"].is_null()) {
+            std::string newPassword = body["password"];
+            if (!validatePassword(newPassword)) {
+                return errorResponse("BadRequest", "Password must be at least 6 characters", 400);
+            }
+            it->passwordHash = authManager->sha256(newPassword);
+        }
         // 更新 studentId（仅适用于学生账号）
         if (body.contains("studentId")) {
             if (body["studentId"].is_null()) {
@@ -539,6 +547,8 @@ public:
 
         // 更新密码哈希
         it->passwordHash = authManager->sha256(newPassword);
+        it->updatedAt = dataManager->getCurrentTimestamp();
+        dataManager->saveUsers(users);
 
         // 记录日志
         auto currentUser = authManager->getCurrentUser(token.substr(7));
